@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
+import ColorButton from './ColorButton';
 
 const colors = [
   'red',
@@ -13,16 +14,12 @@ const colors = [
 
 export default function App() {
   let buttons = colors.map(color => {
-    return <Button
-      key={color}
-      onPress={() => {
-        console.log(`${color} clicked`);
-      }}
-      title={color}
-      color={color}
-      accessibilityLabel="Just a {color} button"
-    />
-  })
+    return (
+      <ColorButton 
+        key={color}
+        colorName='green'/>
+    )
+  });
   return (
     <View style={rowStyle.container}>
       {buttons}
