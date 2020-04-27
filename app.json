@@ -1,0 +1,17 @@
+{
+  "name": "mastermind",
+  "displayName": "mastermind",
+  "expo": {
+    "name": "mastermind",
+    "slug": "mastermind",
+    "version": "1.0.0",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
