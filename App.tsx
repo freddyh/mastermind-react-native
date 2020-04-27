@@ -1,19 +1,41 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
+
+const colors = [
+  'red',
+  'orange',
+  'yellow',
+  'green',
+  'blue',
+  'indigo',
+  'violet'
+];
 
 export default function App() {
+  let buttons = colors.map(color => {
+    return <Button
+      key={color}
+      onPress={() => {
+        console.log(`${color} clicked`);
+      }}
+      title={color}
+      color={color}
+      accessibilityLabel="Just a {color} button"
+    />
+  })
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+    <View style={rowStyle.container}>
+      {buttons}
     </View>
   );
-}
+};
 
-const styles = StyleSheet.create({
+const rowStyle = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'black',
     alignItems: 'center',
     justifyContent: 'center',
-  },
+    flex: 1,
+    flexDirection: 'row'
+  }
 });
