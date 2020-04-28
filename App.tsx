@@ -1,23 +1,17 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import ColorButton from './ColorButton';
-
-const colors = [
-  'red',
-  'orange',
-  'yellow',
-  'green',
-  'blue',
-  'indigo',
-  'violet'
-];
+import ColorManager from './colorManager';
 
 export default function App() {
-  let buttons = colors.map(color => {
+  let colorManager = new ColorManager('hard');
+  console.log(colorManager.colors())
+  let buttons = colorManager.colors().map(color => {
     return (
       <ColorButton 
         key={color}
-        colorName='green'/>
+        colorName={color}
+      />
     )
   });
   return (
@@ -31,8 +25,8 @@ const rowStyle = StyleSheet.create({
   container: {
     backgroundColor: 'black',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flex: 1,
-    flexDirection: 'row'
+    flexDirection: 'row',
   }
 });

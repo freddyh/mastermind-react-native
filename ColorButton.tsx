@@ -1,5 +1,14 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native';
+import ColorManager from './colorManager';
+
+const style = StyleSheet.create({
+  container: {
+      width: 50,
+      height: 50,
+      borderRadius: 25
+  }
+});
 
 class ColorButton extends Component {
     constructor(props) {
@@ -10,21 +19,28 @@ class ColorButton extends Component {
         };
     };
 
+    randomColor = () => {
+        const generator = new ColorManager('hard');
+        return generator.random();
+    }
+
     onPress = () => {
         this.setState({
-            colorName: 'blue'
+            colorName: this.randomColor()
         });
     }
 
     render(props) {
         return (
-        <Button
-            // key={this.props.colorName}
-            onPress={this.onPress}
-            title={this.state.colorName}
-            color={this.state.colorName}
-            accessibilityLabel={`Just a ${this.props.colorName} button`}
-        />
+            <View 
+                style={style.container}
+                backgroundColor={this.state.colorName}>
+                <Button
+                    onPress={this.onPress}
+                    title=""
+                    accessibilityLabel={`Just a ${this.props.colorName} button`}
+                />
+            </View>
         )
     }
 }
