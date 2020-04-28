@@ -23,10 +23,11 @@ export default function App() {
 
 const rowStyle = StyleSheet.create({
   container: {
-    backgroundColor: 'black',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
+    flexWrap: 'wrap'
   }
 });

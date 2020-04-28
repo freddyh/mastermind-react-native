@@ -4,6 +4,8 @@ import ColorManager from './colorManager';
 
 const style = StyleSheet.create({
   container: {
+      borderColor: 'black',
+      borderWidth: 5,
       width: 50,
       height: 50,
       borderRadius: 25
@@ -37,7 +39,7 @@ class ColorButton extends Component {
                 backgroundColor={this.state.colorName}>
                 <Button
                     onPress={this.onPress}
-                    title=""
+                    title={this.state.colorName}
                     accessibilityLabel={`Just a ${this.props.colorName} button`}
                 />
             </View>

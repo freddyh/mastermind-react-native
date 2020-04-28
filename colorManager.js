@@ -15,7 +15,7 @@ class ColorManager {
         'brown'
     ];
     #hardColors = [
-        'coral',
+        'gray',
         'cyan',
         'olive'
     ];
