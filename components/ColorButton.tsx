@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, Text, View, Button } from 'react-native';
-import ColorManager from './colorManager';
+import ColorManager from '../colorManager';
 
 const style = StyleSheet.create({
   container: {

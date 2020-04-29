@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import ColorButton from './ColorButton';
-import ColorManager from './colorManager';
+import ColorManager from '../colorManager';
 
 export default function App() {
   let colorManager = new ColorManager('hard');
