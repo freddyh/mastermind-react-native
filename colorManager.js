@@ -1,5 +1,4 @@
 class ColorManager {
-    #difficulty = 'easy'
     #easyColors = [
         'red',
         'orange',
@@ -21,14 +20,13 @@ class ColorManager {
     ];
     #colors = [];
     constructor(difficulty) {
-        this.#difficulty = difficulty
-        if (this.#difficulty == 'easy') {
+        if (difficulty == 'easy') {
             this.#colors = this.#easyColors;
         }
-        else if (this.#difficulty == 'medium') {
+        else if (difficulty == 'medium') {
             this.#colors = this.#easyColors.concat(this.#mediumColors);
         }
-        else if (this.#difficulty == 'hard') {
+        else if (difficulty == 'hard') {
             this.#colors = this.#easyColors.concat(this.#mediumColors, this.#hardColors);
         }
     }

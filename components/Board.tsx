@@ -24,14 +24,12 @@ const style = StyleSheet.create({
 export default class Board extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-        };
     }
 
     render() {
-        const colorManager = new ColorManager('easy');
-        const buttons = colorManager.colors().map(color => {
-            return (<ColorButton key={color} colorName={color} />)
+        const colors = this.props.game.secret;
+        const buttons = colors.map((color, index) => {
+            return (<ColorButton key={`${color}-${index}`} colorName={color} />);
         });
 
         return (
