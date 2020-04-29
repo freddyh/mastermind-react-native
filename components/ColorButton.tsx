@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import ColorManager from '../colorManager';
 

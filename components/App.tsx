@@ -4,9 +4,9 @@ import ColorButton from './ColorButton';
 import ColorManager from '../colorManager';
 
 export default function App() {
-  let colorManager = new ColorManager('hard');
+  const colorManager = new ColorManager('hard');
   console.log(colorManager.colors())
-  let buttons = colorManager.colors().map(color => {
+  const buttons = colorManager.colors().map(color => {
     return (
       <ColorButton 
         key={color}
