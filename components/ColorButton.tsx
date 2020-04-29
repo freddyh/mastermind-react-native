@@ -22,7 +22,7 @@ class ColorButton extends Component {
     };
 
     randomColor = () => {
-        const generator = new ColorManager('hard');
+        const generator = new ColorManager('easy');
         return generator.random();
     }
 

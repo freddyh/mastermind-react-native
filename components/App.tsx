@@ -1,27 +1,18 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import ColorButton from './ColorButton';
-import ColorManager from '../colorManager';
+import Board from './Board';
 
 export default function App() {
-  const colorManager = new ColorManager('hard');
-  console.log(colorManager.colors())
-  const buttons = colorManager.colors().map(color => {
-    return (
-      <ColorButton 
-        key={color}
-        colorName={color}
-      />
-    )
-  });
   return (
-    <View style={rowStyle.container}>
-      {buttons}
+    <View style={style.container}>
+      <View style={style.board}>
+        <Board></Board>
+      </View>
     </View>
   );
 };
 
-const rowStyle = StyleSheet.create({
+const style = StyleSheet.create({
   container: {
     alignItems: 'center',
     alignContent: 'center',
@@ -29,5 +20,9 @@ const rowStyle = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap'
+  },
+  board: {
+    width: '80%',
+    height: '80%'
   }
 });
