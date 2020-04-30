@@ -5,7 +5,6 @@ import ColorManager from '../colorManager';
 
 const style = StyleSheet.create({
   container: {
-      color: 'brown',
       backgroundColor: 'brown',
       width: '100%',
       height: '100%',
@@ -15,7 +14,6 @@ const style = StyleSheet.create({
   row: {
       borderWidth: 2,
       borderRadius: 8,
-      borderColor: 'green',
       flex: 1,
       flexDirection: 'row',
   }
@@ -29,13 +27,20 @@ export default class Board extends Component {
     render() {
         const colors = this.props.game.secret;
         const buttons = colors.map((color, index) => {
-            return (<ColorButton key={`${color}-${index}`} colorName={color} />);
+            return (<ColorButton key={`${color}-${index}`} colorName={color} mutable={false}/>);
+        });
+        const buttonsMutable = colors.map((color, index) => {
+            return (<ColorButton key={`${color}-${index}`} colorName={color} mutable={true}/>);
         });
 
         return (
             <View style={style.container}>
                 <View style={style.row}>
                     {buttons}
+                </View>
+
+                <View style={style.row}>
+                    {buttonsMutable}
                 </View>
             </View>
         );

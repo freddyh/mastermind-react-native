@@ -4,8 +4,6 @@ import ColorManager from '../colorManager';
 
 const style = StyleSheet.create({
   container: {
-      borderColor: 'black',
-      borderWidth: 5,
       width: 50,
       height: 50,
       borderRadius: 25
@@ -17,7 +15,8 @@ class ColorButton extends Component {
         super(props);
 
         this.state = {
-            colorName: props.colorName
+            colorName: props.colorName,
+            mutable: props.mutable
         };
     };
 
@@ -36,10 +35,12 @@ class ColorButton extends Component {
         return (
             <View 
                 style={style.container}
+                borderColor={ this.state.mutable ? '' : 'rgba(158, 150, 150, .5)' }
+                borderWidth={ this.state.mutable ? 0 : 5 }
                 backgroundColor={this.state.colorName}>
                 <Button
                     onPress={this.onPress}
-                    title={this.state.colorName}
+                    title=""//{this.state.colorName}
                     accessibilityLabel={`Just a ${this.props.colorName} button`}
                 />
             </View>
