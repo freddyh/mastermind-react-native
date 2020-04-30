@@ -22,26 +22,32 @@ const style = StyleSheet.create({
 export default class Board extends Component {
     constructor(props) {
         super(props);
+        this.game = this.props.game;
     }
 
     render() {
-        const colors = this.props.game.secret;
-        const buttons = colors.map((color, index) => {
-            return (<ColorButton key={`${color}-${index}`} colorName={color} mutable={false}/>);
-        });
-        const buttonsMutable = colors.map((color, index) => {
-            return (<ColorButton key={`${color}-${index}`} colorName={color} mutable={true}/>);
-        });
+        const colors = this.game.colorManager.colors();
+
+        const count = 10;
+        var i = 0;
+        const rows = [];
+
+        while (i < count) {
+            const random = this.game.randomRow(4);
+            rows.push(random);
+            i++;
+        }
+        rows.push(colors);
 
         return (
             <View style={style.container}>
-                <View style={style.row}>
-                    {buttons}
-                </View>
-
-                <View style={style.row}>
-                    {buttonsMutable}
-                </View>
+                {rows.map((row, index) => {
+                    return <View key={index} style={style.row}>
+                        {row.map((color, index) => {
+                            return <ColorButton key={`${color}-${index}`} colorName={color} mutable={true}/>
+                        })}
+                    </View>
+                })}
             </View>
         );
     }

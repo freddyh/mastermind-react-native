@@ -25,7 +25,7 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   board: {
-    width: '80%',
-    height: '80%'
+    width: '90%',
+    height: '90%'
   }
 });

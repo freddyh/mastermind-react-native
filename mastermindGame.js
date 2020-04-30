@@ -17,12 +17,16 @@ export default class MasterMindGame {
                 throw new Error(`-- ${difficulty} -- is not a valid difficulty `);
         }
 
-        this.secret = [];
+        this.secret = this.randomRow(6);
+    }
+
+    randomRow(size) {
+        var result = [];
         var i = 0;
-        const size = 6;
         while (i < size) {
-            this.secret.push(this.colorManager.random());
+            result.push(this.colorManager.random());
             i++;
         }
+        return result;
     }
 }
