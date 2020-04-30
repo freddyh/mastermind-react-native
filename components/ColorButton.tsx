@@ -26,6 +26,9 @@ class ColorButton extends Component {
     }
 
     onPress = () => {
+        if (!this.state.mutable) {
+            return;
+        }
         this.setState({
             colorName: this.randomColor()
         });
@@ -35,8 +38,8 @@ class ColorButton extends Component {
         return (
             <View 
                 style={style.container}
-                borderColor={ this.state.mutable ? '' : 'rgba(158, 150, 150, .5)' }
-                borderWidth={ this.state.mutable ? 0 : 5 }
+                borderColor={ this.state.mutable ? 'rgba(158, 150, 150, .5)' : '' }
+                borderWidth={ this.state.mutable ? 5 : 0 }
                 backgroundColor={this.state.colorName}>
                 <Button
                     onPress={this.onPress}
