@@ -5,8 +5,7 @@ import MasterMindGame from '../mastermindGame';
 import GameDifficulty from '../gameDifficulty';
 
 export default function App() {
-  const difficulty = GameDifficulty.EASY;
-  const game = new MasterMindGame(difficulty);
+  const game = new MasterMindGame(GameDifficulty.EASY);
   return (
     <View style={style.container}>
       <View style={style.board}>
