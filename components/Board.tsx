@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ColorButton from './ColorButton';
+import ResultsContainer from './ResultsContainer';
 // import ColorButtonModel from '../colorButtonModel';
 
 const style = StyleSheet.create({
@@ -12,8 +13,8 @@ const style = StyleSheet.create({
     borderRadius: 8,
   },
   row: {
-    borderWidth: 2,
-    borderRadius: 8,
+    // borderWidth: 2,
+    // borderRadius: 8,
     flex: 1,
     flexDirection: 'row',
   }
@@ -45,7 +46,7 @@ export default class Board extends Component<MyProps, MyState> {
 
     while (i < count) {
       const random = this.props.game.randomRow(4);
-      const models: any[] = random.map((color: any) => { return { color: color, mutable: true }; });
+      const models: any[] = random.map((color: any) => { return { color: '', mutable: true }; });
       // const models: ColorButtonModel[] = random.map((color: any) => { return new ColorButtonModel({ color: color, mutable: true }); });
       rows.push(models);
       i++;
@@ -59,12 +60,16 @@ export default class Board extends Component<MyProps, MyState> {
         {rows.map((row, index) => {
           return <View key={index} style={style.row}>
             {row.map((model: any, index: number) => {
-              return (<ColorButton
-                key={`${model}-${index}`}
-                colorName={model.color}
-                mutable={model.mutable}
-                colorManager={this.props.game.colorManager} />);
+              return (
+                <ColorButton
+                  key={`${model}-${index}`}
+                  colorName={model.color}
+                  mutable={model.mutable}
+                  colorManager={this.props.game.colorManager} />
+              );
             })}
+            <ResultsContainer results={['match', '', 'match', '']}>
+            </ResultsContainer>
           </View>
         })}
       </View>
