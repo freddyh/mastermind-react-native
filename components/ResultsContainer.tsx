@@ -7,7 +7,7 @@ const style = StyleSheet.create({
     flexDirection: 'column',
     maxWidth: 15 * 5,
     width: 15 * 5,
-    height: '80%',
+    height: '80%'
   },
   row: {
     width: '100%',
@@ -17,15 +17,8 @@ const style = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     alignContent: 'center',
-    justifyContent: 'space-evenly',
-
+    justifyContent: 'space-evenly'
   },
-  result: {
-    borderRadius: 25,
-    width: 15,
-    height: 15,
-    backgroundColor: 'black'
-  }
 });
 
 type Props = {
@@ -33,29 +26,38 @@ type Props = {
 };
 
 class ResultsContainer extends Component<Props> {
-  private results: string[];
+  private resultsColors: string[];
 
   constructor(props: Props) {
     super(props);
-    this.results = props.results;
+    this.resultsColors = props.results.map((result: string) => {
+      return result === 'match' ? 'black' : 'white'
+    });
+  }
+
+  resultView(color: string, key: number) {
+    const style = StyleSheet.create({
+      main: {
+        borderRadius: 25,
+        width: 15,
+        height: 15,
+        backgroundColor: color
+      }
+    });
+    return (
+      <View
+        key={key}
+        style={style.main}>
+      </View>
+    );
   }
 
   render() {
-    let first = this.results.slice(0, 2).map((result, index) => {
-      return (
-        <View
-          key={index}
-          style={style.result}
-          backgroundColor={result === 'match' ? 'black' : 'white'}>
-        </View>);
+    let first = this.resultsColors.slice(0, 2).map((color, index) => {
+      return this.resultView(color, index);
     });
-    let second = this.results.slice(2, 4).map((result, index) => {
-      return (
-        <View
-          key={index}
-          style={style.result}
-          backgroundColor={result === 'match' ? 'black' : 'white'}>
-        </View>);
+    let second = this.resultsColors.slice(2, 4).map((color, index) => {
+      return this.resultView(color, index);
     });
     return (
       <View style={style.container}>
@@ -66,7 +68,7 @@ class ResultsContainer extends Component<Props> {
           {second}
         </View>
       </View>
-    )
+    );
   }
 };
 
