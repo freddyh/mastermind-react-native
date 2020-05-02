@@ -13,8 +13,6 @@ const style = StyleSheet.create({
     borderRadius: 8,
   },
   row: {
-    // borderWidth: 2,
-    // borderRadius: 8,
     flex: 1,
     flexDirection: 'row',
   }
@@ -46,32 +44,30 @@ export default class Board extends Component<MyProps, MyState> {
 
     while (i < count) {
       const random = this.props.game.randomRow(4);
-      const models: any[] = random.map((color: any) => { return { color: '', mutable: true }; });
-      // const models: ColorButtonModel[] = random.map((color: any) => { return new ColorButtonModel({ color: color, mutable: true }); });
-      rows.push(models);
+      const buttons: any[] = random.map((color: any, index: number) => {
+        return <ColorButton
+          key={index}
+          colorName={color}
+          mutable={true}
+          colorManager={this.props.game.colorManager} />
+      });
+      const row = (
+        <View key={i} style={style.row}>
+          {buttons}
+        </View>
+      );
+      rows.push(row);
       i++;
     }
-    const immutableColors: any[] = colors.map((color: any) => { return { color: color, mutable: false }; });
-    // const immutableColors: ColorButtonModel[] = colors.map((color: any) => { return new ColorButtonModel({ color: color, mutable: false }); });
-    rows.push(immutableColors);
+
+    // const immutableColors: any[] = colors.map((color: any) => {
+    //   return { color: color, mutable: false };
+    // });
+    // rows.push(immutableColors);
 
     return (
       <View style={style.container}>
-        {rows.map((row, index) => {
-          return <View key={index} style={style.row}>
-            {row.map((model: any, index: number) => {
-              return (
-                <ColorButton
-                  key={`${model}-${index}`}
-                  colorName={model.color}
-                  mutable={model.mutable}
-                  colorManager={this.props.game.colorManager} />
-              );
-            })}
-            <ResultsContainer results={['match', '', 'match', '']}>
-            </ResultsContainer>
-          </View>
-        })}
+        {rows}
       </View>
     );
   }

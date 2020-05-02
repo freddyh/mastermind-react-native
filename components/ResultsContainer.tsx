@@ -7,8 +7,7 @@ const style = StyleSheet.create({
     flexDirection: 'column',
     maxWidth: 60,
     width: '50%',
-    height: '50%',
-    borderRadius: 25,
+    height: '80%',
     borderColor: 'black',
     borderWidth: 2
     // backgroundColor: 'blue'
@@ -23,8 +22,8 @@ const style = StyleSheet.create({
   },
   result: {
     borderRadius: 25,
-    width: '50%',
-    height: '100%',
+    width: 20,
+    height: 20,
     backgroundColor: 'black'
   }
 });
