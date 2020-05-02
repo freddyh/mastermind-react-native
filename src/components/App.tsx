@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import Board from './Board';
-import MasterMindGame from '../mastermindGame';
-import GameDifficulty from '../gameDifficulty';
+import MasterMindGame from '../models/mastermindGame';
+import GameDifficulty from '../models/gameDifficulty';
 
 export default function App() {
   const game = new MasterMindGame(GameDifficulty.EASY);
