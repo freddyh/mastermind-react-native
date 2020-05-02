@@ -5,12 +5,9 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    maxWidth: 60,
-    width: '50%',
+    maxWidth: 15 * 5,
+    width: 15 * 5,
     height: '80%',
-    borderColor: 'black',
-    borderWidth: 2
-    // backgroundColor: 'blue'
   },
   row: {
     width: '100%',
@@ -18,12 +15,15 @@ const style = StyleSheet.create({
     height: '50%',
     flex: 1,
     flexDirection: 'row',
-    // backgroundColor: 'red'
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+
   },
   result: {
     borderRadius: 25,
-    width: 20,
-    height: 20,
+    width: 15,
+    height: 15,
     backgroundColor: 'black'
   }
 });
@@ -41,21 +41,29 @@ class ResultsContainer extends Component<Props> {
   }
 
   render() {
-    let first = this.results.slice(0, 2);
-    let second = this.results.slice(2, 4);
+    let first = this.results.slice(0, 2).map((result, index) => {
+      return (
+        <View
+          key={index}
+          style={style.result}
+          backgroundColor={result === 'match' ? 'black' : 'white'}>
+        </View>);
+    });
+    let second = this.results.slice(2, 4).map((result, index) => {
+      return (
+        <View
+          key={index}
+          style={style.result}
+          backgroundColor={result === 'match' ? 'black' : 'white'}>
+        </View>);
+    });
     return (
       <View style={style.container}>
         <View style={style.row}>
-          {first.map((result, index) => {
-            return (<View key={index} style={style.result} backgroundColor={result === 'match' ? 'black' : 'white'}>
-            </View>);
-          })}
+          {first}
         </View>
         <View style={style.row}>
-          {second.map((result, index) => {
-            return (<View key={index} style={style.result} backgroundColor={result === 'match' ? 'black' : 'white'}>
-            </View>);
-          })}
+          {second}
         </View>
       </View>
     )

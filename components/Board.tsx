@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
-// import ColorButtonModel from '../colorButtonModel';
 
 const style = StyleSheet.create({
   container: {
@@ -13,6 +12,9 @@ const style = StyleSheet.create({
     borderRadius: 8,
   },
   row: {
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
   }
@@ -36,8 +38,6 @@ export default class Board extends Component<MyProps, MyState> {
   }
 
   render() {
-    const colors = this.props.game.colorManager.colors;
-
     const count = 10;
     let i = 0;
     const rows = [];
@@ -54,12 +54,15 @@ export default class Board extends Component<MyProps, MyState> {
       const row = (
         <View key={i} style={style.row}>
           {buttons}
+          <ResultsContainer results={['match', '', '', '']}>
+          </ResultsContainer>
         </View>
       );
       rows.push(row);
       i++;
     }
 
+    // const colors = this.props.game.colorManager.colors;
     // const immutableColors: any[] = colors.map((color: any) => {
     //   return { color: color, mutable: false };
     // });
