@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
+import GuessRow from './GuessRow';
 import ColorPicker from './ColorPicker';
+import Guess from '../models/guess';
 
 const style = StyleSheet.create({
   container: {
@@ -24,21 +26,16 @@ const style = StyleSheet.create({
     borderRadius: 8,
   },
   right: {
-    // backgroundColor: 'gray',
     flex: 1,
     flexDirection: 'column',
     maxWidth: '30%',
   },
   picker: {
-    // backgroundColor: 'green',
     width: '100%',
     height: '90%',
-    // borderWidth: 2,
-    // borderRadius: 8,
   },
   submit: {
     height: '10%',
-    // width: '30%',
     backgroundColor: 'blue',
   },
   row: {
@@ -63,41 +60,25 @@ export default class Board extends Component<MyProps, MyState> {
     isActive: false,
   };
 
+  private guessRows: GuessRow[];
+
   constructor(props: MyProps) {
     super(props);
+    console.log(`guess in board: ${this.props.game.guesses}`)
+    const guessRows = this.props.game.guesses.map((guess: Guess) => {
+      return (
+        <GuessRow game={this.props.game} guess={guess}>
+        </GuessRow>
+      );
+    });
+    this.guessRows = guessRows;
   }
 
   render() {
-    const count = 10;
-    let i = 0;
-    const rows = [];
-
-    while (i < count) {
-      const random = this.props.game.randomRow(4);
-      const buttons: any[] = random.map((color: any, index: number) => {
-        return <ColorButton
-          key={index}
-          colorName={color}
-          mutable={true}
-          colorManager={this.props.game.colorManager}
-          callback={(cname) => {
-            // console.log(`other callback ${this.props.game.colorManager.selectedColor}`)
-          }} />
-      });
-      const row = (
-        <View key={i} style={style.row}>
-          {buttons}
-          <ResultsContainer results={['match', '', '', '']}>
-          </ResultsContainer>
-        </View>
-      );
-      rows.push(row);
-      i++;
-    }
     return (
       <View style={style.container}>
         <View style={style.board}>
-          {rows}
+          {this.guessRows}
         </View>
         <View style={style.right}>
           <View style={style.picker}>
@@ -107,9 +88,6 @@ export default class Board extends Component<MyProps, MyState> {
             console.log("hello submit button");
           }} />
         </View>
-        {/* <View style={style.picker}>
-          <ColorPicker colorManager={this.props.game.colorManager} />
-        </View> */}
       </View>
     );
   }

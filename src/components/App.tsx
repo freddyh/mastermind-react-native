@@ -3,9 +3,11 @@ import { StyleSheet, Text, View, Button } from 'react-native';
 import Board from './Board';
 import MasterMindGame from '../models/mastermindGame';
 import GameDifficulty from '../models/gameDifficulty';
+import ColorManager from '../models/colorManager';
 
 export default function App() {
-  const game = new MasterMindGame(GameDifficulty.EASY);
+  const colorManager = new ColorManager(GameDifficulty.EASY);
+  const game = new MasterMindGame(colorManager);
   return (
     <View style={style.container}>
       <View style={style.board}>
