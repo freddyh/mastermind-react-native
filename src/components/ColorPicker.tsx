@@ -13,26 +13,28 @@ type State = {
   selectedColor: string
 };
 
+const style = StyleSheet.create({
+  container: {
+    width: '100%',
+    flex: 1,
+    flexDirection: 'column',
+    height: '100%',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+  },
+  selected: {
+    color: 'white',
+  }
+});
+
 export default class ColorPicker extends Component<Props, State> {
   state = {
     selectedIndex: 0,
     selectedColor: ''
   }
+
   render() {
-    const style = StyleSheet.create({
-      container: {
-        width: '100%',
-        flex: 1,
-        flexDirection: 'column',
-        height: '100%',
-        alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'space-evenly',
-      },
-      selected: {
-        color: 'white',
-      }
-    });
     const colorsButtons = this.props.colorManager.colors.map((color: string, index: number) => {
       const button = (
         <ColorButton
