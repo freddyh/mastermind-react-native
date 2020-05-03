@@ -5,22 +5,17 @@ export default class MasterMindGame {
   public colorManager: ColorManager;
   private secret: string[];
 
-  constructor(difficulty: GameDifficulty) {
-    switch (difficulty) {
-      case GameDifficulty.EASY:
-        this.colorManager = new ColorManager(difficulty);
-        break;
-      case GameDifficulty.MEDIUM:
-        this.colorManager = new ColorManager(difficulty);
-        break;
-      case GameDifficulty.HARD:
-        this.colorManager = new ColorManager(difficulty);
-        break;
-      default:
-        throw new Error(`-- ${difficulty} -- is not a valid difficulty `);
-    }
+  public maxGuessCount: number;
+  public currentGuessCount: number = 0;
+  public guesses: any[];
+  public selectedColor: string;
 
-    this.secret = this.randomRow(6);
+  constructor(difficulty: GameDifficulty) {
+    this.selectedColor = '';
+    this.guesses = [];
+    this.maxGuessCount = 10;
+    this.colorManager = new ColorManager(difficulty);
+    this.secret = this.randomRow(4);
   }
 
   randomRow(size: number) {

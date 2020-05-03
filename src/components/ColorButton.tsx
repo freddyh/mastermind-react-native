@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Button } from 'react-native';
 import ColorManager from '../models/colorManager';
 
-const style = StyleSheet.create({
-  container: {
-    width: 50,
-    height: 50,
-    borderRadius: 25
-  }
-});
-
 type Props = {
+  callback: (buttonKey: string) => void,
   colorName: any,
   mutable: boolean,
   colorManager: ColorManager,
@@ -41,27 +34,37 @@ class ColorButton extends Component<Props, State> {
   }
 
   onPress = () => {
+    this.props.callback(this.props.colorName)
     if (!this.state.mutable) {
       return;
     }
     this.setState({
-      colorName: this.randomColor()
+      colorName: this.props.colorManager.selectedColor
+      // colorName: this.randomColor()
     });
   }
 
   render() {
+
+    const style = StyleSheet.create({
+      container: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        // borderColor: this.state.mutable ? 'rgba(158, 150, 150, .2)' : null,
+        borderWidth: this.state.mutable ? 5 : 0,
+        backgroundColor: this.state.colorName
+      }
+    });
+
     return (
-      <View
-        style={style.container}
-        borderColor={this.state.mutable ? 'rgba(158, 150, 150, .5)' : ''}
-        borderWidth={this.state.mutable ? 5 : 0}
-        backgroundColor={this.state.colorName}>
+      <View style={style.container}>
         <Button
           onPress={this.onPress}
-          title=""//{this.state.colorName}
+          title=""
           accessibilityLabel={`Just a ${this.props.colorName} button`}
         />
-      </View>
+      </View >
     )
   }
 }

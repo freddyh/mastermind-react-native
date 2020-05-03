@@ -1,5 +1,7 @@
 import GameDifficulty from './gameDifficulty';
 
+type Color = string;
+
 class ColorManager {
   private easyColors = [
     'red',
@@ -21,6 +23,7 @@ class ColorManager {
     'olive'
   ];
   public colors: string[];
+  public selectedColor: Color;
 
   constructor(difficulty: GameDifficulty) {
     this.colors = [];
@@ -37,6 +40,7 @@ class ColorManager {
       default:
         throw new Error(`-- ${difficulty} -- is not a valid difficulty `);
     }
+    this.selectedColor = this.colors[0];
   }
 
   random() {

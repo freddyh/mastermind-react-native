@@ -1,15 +1,45 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Button } from 'react-native';
 import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
+import ColorPicker from './ColorPicker';
 
 const style = StyleSheet.create({
   container: {
+    flex: 1,
+    flexDirection: 'row',
     backgroundColor: 'brown',
     width: '100%',
     height: '100%',
     borderWidth: 2,
     borderRadius: 8,
+  },
+  board: {
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: 'brown',
+    width: '70%',
+    height: '100%',
+    borderWidth: 2,
+    borderRadius: 8,
+  },
+  right: {
+    // backgroundColor: 'gray',
+    flex: 1,
+    flexDirection: 'column',
+    maxWidth: '30%',
+  },
+  picker: {
+    // backgroundColor: 'green',
+    width: '100%',
+    height: '90%',
+    // borderWidth: 2,
+    // borderRadius: 8,
+  },
+  submit: {
+    height: '10%',
+    // width: '30%',
+    backgroundColor: 'blue',
   },
   row: {
     alignItems: 'center',
@@ -49,7 +79,10 @@ export default class Board extends Component<MyProps, MyState> {
           key={index}
           colorName={color}
           mutable={true}
-          colorManager={this.props.game.colorManager} />
+          colorManager={this.props.game.colorManager}
+          callback={(cname) => {
+            // console.log(`other callback ${this.props.game.colorManager.selectedColor}`)
+          }} />
       });
       const row = (
         <View key={i} style={style.row}>
@@ -61,16 +94,22 @@ export default class Board extends Component<MyProps, MyState> {
       rows.push(row);
       i++;
     }
-
-    // const colors = this.props.game.colorManager.colors;
-    // const immutableColors: any[] = colors.map((color: any) => {
-    //   return { color: color, mutable: false };
-    // });
-    // rows.push(immutableColors);
-
     return (
       <View style={style.container}>
-        {rows}
+        <View style={style.board}>
+          {rows}
+        </View>
+        <View style={style.right}>
+          <View style={style.picker}>
+            <ColorPicker colorManager={this.props.game.colorManager} />
+          </View>
+          <Button title="Submit" onPress={() => {
+            console.log("hello submit button");
+          }} />
+        </View>
+        {/* <View style={style.picker}>
+          <ColorPicker colorManager={this.props.game.colorManager} />
+        </View> */}
       </View>
     );
   }
