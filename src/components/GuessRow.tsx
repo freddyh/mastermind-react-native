@@ -19,6 +19,9 @@ const style = StyleSheet.create({
     justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
+  },
+  selected: {
+    backgroundColor: 'white'
   }
 });
 
@@ -40,11 +43,15 @@ export default class GuessRow extends Component<Props, State> {
     selectedIndex: 0,
   };
 
-  public guess: Guess
+  public guess: Guess;
 
   constructor(props: Props) {
     super(props);
     this.guess = props.guess;
+    this.state = {
+      isMutable: props.active,
+      selectedIndex: 0
+    };
   }
 
   nextIndex(): number {
@@ -63,21 +70,32 @@ export default class GuessRow extends Component<Props, State> {
 
   render() {
     const buttons = this.props.guess.values.map((color: any, index: number) => {
-      return (
+      const button = (
         <ColorButton
           key={index}
           colorName={color}
           mutable={this.props.active}
           colorManager={this.props.game.colorManager}
           callback={(buttonKey) => {
-            console.log(`Guess Row Clicked ${buttonKey} color manager: ${this.props.game.colorManager.selectedColor}`)
-            if (this.guess.isValid()) { return; }
             this.setState({
-              selectedIndex: this.nextIndex()
+              selectedIndex: index
             })
           }} />
       );
+      if (this.props.active) {
+        if (index === this.state.selectedIndex) {
+          return (
+            <View
+              key={index}
+              style={style.selected}>
+              {button}
+            </View>
+          );
+        }
+      }
+      return button;
     });
+
     const row = (
       <View style={style.row}>
         {buttons}
