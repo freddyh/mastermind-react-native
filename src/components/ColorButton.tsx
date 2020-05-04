@@ -40,7 +40,6 @@ class ColorButton extends Component<Props, State> {
     }
     this.setState({
       colorName: this.props.colorManager.selectedColor
-      // colorName: this.randomColor()
     });
   }
 
@@ -51,8 +50,8 @@ class ColorButton extends Component<Props, State> {
         width: 50,
         height: 50,
         borderRadius: 25,
-        // borderColor: this.state.mutable ? 'rgba(158, 150, 150, .2)' : null,
-        borderWidth: this.state.mutable ? 5 : 0,
+        borderColor: this.state.mutable ? 'black' : 'transparent',
+        borderWidth: this.state.mutable ? 2 : 0,
         backgroundColor: this.state.colorName
       }
     });
