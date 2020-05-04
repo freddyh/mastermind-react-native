@@ -26,17 +26,20 @@ type MyProps = {
   game: any;
   guess: Guess;
   results: GuessResult[];
+  active: boolean;
 };
 
 type MyState = {
   isMutable: boolean;
   selectedIndex: number;
+  isActive: boolean;
 };
 
 export default class GuessRow extends Component<MyProps, MyState> {
   state: MyState = {
     isMutable: false,
     selectedIndex: 0,
+    isActive: false
   };
 
   // constructor(props: MyProps) {
@@ -48,7 +51,7 @@ export default class GuessRow extends Component<MyProps, MyState> {
   }
 
   render() {
-    const buttons = this.props.game.randomRow(4).map((color: any, index: number) => {
+    const buttons = this.props.guess.map((color: any, index: number) => {
       return <ColorButton
         key={index}
         colorName={color}

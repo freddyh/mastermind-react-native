@@ -22,12 +22,13 @@ export default class Board extends Component<MyProps, MyState> {
 
   constructor(props: MyProps) {
     super(props);
+    const results = [GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH];
     const guessRows = this.props.game.guesses.map((guess: Guess) => {
       return (
         <GuessRow
           game={this.props.game}
           guess={guess}
-          results={[GuessResult.COLOR_POSITION_MATCH, GuessResult.COLOR_POSITION_MATCH, GuessResult.COLOR_MATCH, GuessResult.NO_MATCH]}>
+          results={results}>
         </GuessRow>
       );
     });

@@ -53,7 +53,9 @@ class ResultsContainer extends Component<Props> {
         borderRadius: 25,
         width: 15,
         height: 15,
-        backgroundColor: color
+        backgroundColor: color,
+        borderColor: color === 'transparent' ? 'black' : color,
+        borderWidth: color === 'transparent' ? 1 : 0
       }
     });
     return (
