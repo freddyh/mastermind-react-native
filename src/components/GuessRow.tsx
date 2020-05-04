@@ -32,19 +32,13 @@ type MyProps = {
 type MyState = {
   isMutable: boolean;
   selectedIndex: number;
-  isActive: boolean;
 };
 
 export default class GuessRow extends Component<MyProps, MyState> {
   state: MyState = {
     isMutable: false,
     selectedIndex: 0,
-    isActive: false
   };
-
-  // constructor(props: MyProps) {
-  //   super(props);
-  // }
 
   nextIndex() {
     return this.state.selectedIndex + 1
@@ -52,22 +46,25 @@ export default class GuessRow extends Component<MyProps, MyState> {
 
   render() {
     const buttons = this.props.guess.map((color: any, index: number) => {
-      return <ColorButton
-        key={index}
-        colorName={color}
-        mutable={true}
-        colorManager={this.props.game.colorManager}
-        callback={(buttonKey) => {
-          console.log(`Guess Row Clicked ${buttonKey} color manager: ${this.props.game.colorManager.selectedColor}`)
-          this.setState({
-            selectedIndex: this.nextIndex()
-          })
-        }} />
+      return (
+        <ColorButton
+          key={index}
+          colorName={color}
+          mutable={this.props.active}
+          colorManager={this.props.game.colorManager}
+          callback={(buttonKey) => {
+            console.log(`Guess Row Clicked ${buttonKey} color manager: ${this.props.game.colorManager.selectedColor}`)
+            this.setState({
+              selectedIndex: this.nextIndex()
+            })
+          }} />
+      );
     });
     const row = (
       <View style={style.row}>
         {buttons}
-        <ResultsContainer results={this.props.results}>
+        <ResultsContainer
+          results={this.props.results}>
         </ResultsContainer>
       </View>
     );

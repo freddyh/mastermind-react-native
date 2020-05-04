@@ -23,12 +23,13 @@ export default class Board extends Component<MyProps, MyState> {
   constructor(props: MyProps) {
     super(props);
     const results = [GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH];
-    const guessRows = this.props.game.guesses.map((guess: Guess) => {
+    const guessRows = this.props.game.guesses.map((guess: Guess, index: number) => {
       return (
         <GuessRow
           game={this.props.game}
           guess={guess}
-          results={results}>
+          results={results}
+          active={this.props.game.activeRow === index}>
         </GuessRow>
       );
     });
@@ -46,7 +47,7 @@ export default class Board extends Component<MyProps, MyState> {
             <ColorPicker
               colorManager={this.props.game.colorManager}
               didSelectColor={(color: string) => {
-                console.log(`color selected ${color}`);
+                console.log(`color selected by color picker ${color}`);
               }} />
           </View>
           <Button title="Submit" onPress={() => {
@@ -69,13 +70,11 @@ const style = StyleSheet.create({
     borderRadius: 8,
   },
   board: {
-    flexDirection: 'column',
+    flexDirection: 'column-reverse',
     flex: 1,
     backgroundColor: 'brown',
     width: '70%',
     height: '100%',
-    borderWidth: 2,
-    borderRadius: 8,
   },
   right: {
     flex: 1,
@@ -88,7 +87,6 @@ const style = StyleSheet.create({
   },
   submit: {
     height: '10%',
-    backgroundColor: 'blue',
   },
   row: {
     alignItems: 'center',

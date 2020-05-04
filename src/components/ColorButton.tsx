@@ -44,7 +44,6 @@ class ColorButton extends Component<Props, State> {
   }
 
   render() {
-
     const style = StyleSheet.create({
       container: {
         width: 50,
