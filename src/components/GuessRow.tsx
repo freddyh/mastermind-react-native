@@ -22,30 +22,47 @@ const style = StyleSheet.create({
   }
 });
 
-type MyProps = {
+type Props = {
   game: any;
   guess: Guess;
   results: GuessResult[];
   active: boolean;
 };
 
-type MyState = {
+type State = {
   isMutable: boolean;
   selectedIndex: number;
 };
 
-export default class GuessRow extends Component<MyProps, MyState> {
-  state: MyState = {
+export default class GuessRow extends Component<Props, State> {
+  state: State = {
     isMutable: false,
     selectedIndex: 0,
   };
 
-  nextIndex() {
-    return this.state.selectedIndex + 1
+  public guess: Guess
+
+  constructor(props: Props) {
+    super(props);
+    this.guess = props.guess;
+  }
+
+  nextIndex(): number {
+    let next = this.state.selectedIndex + 1;
+
+    if (next === this.props.game.codeLength) {
+      next = 0;
+    }
+
+    if (this.guess.values[next] === 'transparent') {
+      return next;
+    } else {
+      return this.nextIndex();
+    }
   }
 
   render() {
-    const buttons = this.props.guess.map((color: any, index: number) => {
+    const buttons = this.props.guess.values.map((color: any, index: number) => {
       return (
         <ColorButton
           key={index}
@@ -54,6 +71,7 @@ export default class GuessRow extends Component<MyProps, MyState> {
           colorManager={this.props.game.colorManager}
           callback={(buttonKey) => {
             console.log(`Guess Row Clicked ${buttonKey} color manager: ${this.props.game.colorManager.selectedColor}`)
+            if (this.guess.isValid()) { return; }
             this.setState({
               selectedIndex: this.nextIndex()
             })

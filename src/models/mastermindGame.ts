@@ -1,6 +1,7 @@
 import ColorManager from './colorManager';
 import Guess from './guess';
 import GameDifficulty from './gameDifficulty';
+import GuessResult from './guessResult';
 
 export default class MasterMindGame {
   public colorManager: ColorManager;
@@ -9,7 +10,7 @@ export default class MasterMindGame {
   public guesses: Guess[];
   public selectedColor: string;
   public activeRow: number = 0;
-  private codeLength: number = 4;
+  public codeLength: number = 4;
   private secret: string[];
 
   static init(difficulty: GameDifficulty = GameDifficulty.EASY) {
@@ -23,22 +24,23 @@ export default class MasterMindGame {
     this.selectedColor = '';
     this.guesses = this.generateEmptyGuesses();
     this.maxGuessCount = 10;
-    this.secret = this.randomRow(this.codeLength);
+    this.secret = this.randomColors(this.codeLength);
   }
 
-  generateRandomGuesses() {
+  generateRandomGuesses(): Guess[] {
     const guesses: Guess[] = [];
     let i = 0;
     const count = 10;
     while (i < count) {
-      const random = this.randomRow(this.codeLength);
-      guesses.push(random);
+      const random: string[] = this.randomColors(this.codeLength);
+      const guess = new Guess(this.colorManager, random);
+      guesses.push(guess);
       i++;
     }
     return guesses;
   }
 
-  generateEmptyGuesses() {
+  generateEmptyGuesses(): Guess[] {
     const guesses: Guess[] = [];
     let i = 0;
     const count = 10;
@@ -50,11 +52,12 @@ export default class MasterMindGame {
     return guesses;
   }
 
-  emptyGuessRow(size: number) {
-    return Array(size).fill('transparent');
+  emptyGuessRow(size: number): Guess {
+    const values: string[] = Array(size).fill('transparent');
+    return new Guess(this.colorManager, values);
   }
 
-  randomRow(size: number) {
+  randomColors(size: number): string[] {
     const result = [];
     let i = 0;
     while (i < size) {
@@ -64,8 +67,11 @@ export default class MasterMindGame {
     return result;
   }
 
-  getGuessResults(guess: Guess[]) {
+  getGuessResults(guess: Guess): GuessResult[] {
+    if (!guess.isValid()) {
+      return Array(this.codeLength).fill(GuessResult.NO_MATCH);
+    }
     console.log(`...comparing guess with secret ${guess} ${this.secret}`);
-    return ['match', 'match', '', ''];
+    return [GuessResult.COLOR_POSITION_MATCH, GuessResult.COLOR_MATCH, GuessResult.COLOR_MATCH, GuessResult.NO_MATCH]
   }
 }

@@ -35,12 +35,12 @@ class ColorButton extends Component<Props, State> {
 
   onPress = () => {
     this.props.callback(this.props.colorName)
-    if (!this.state.mutable) {
-      return;
-    }
-    this.setState({
-      colorName: this.props.colorManager.selectedColor
-    });
+    // if (!this.state.mutable) {
+    //   return;
+    // }
+    // this.setState({
+    //   colorName: this.props.colorManager.selectedColor
+    // });
   }
 
   render() {
