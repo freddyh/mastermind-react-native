@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
+import GuessResult from '../models/guessResult';
 
 const style = StyleSheet.create({
   container: {
@@ -22,7 +23,7 @@ const style = StyleSheet.create({
 });
 
 type Props = {
-  results: string[]
+  results: GuessResult[]
 };
 
 class ResultsContainer extends Component<Props> {
@@ -30,9 +31,20 @@ class ResultsContainer extends Component<Props> {
 
   constructor(props: Props) {
     super(props);
-    this.resultsColors = props.results.map((result: string) => {
-      return result === 'match' ? 'black' : 'white'
+    this.resultsColors = props.results.map((result: GuessResult) => {
+      return this.resultColor(result);
     });
+  }
+
+  resultColor(result: GuessResult) {
+    switch (result) {
+      case GuessResult.COLOR_MATCH:
+        return 'white';
+      case GuessResult.COLOR_POSITION_MATCH:
+        return 'black';
+      case GuessResult.NO_MATCH:
+        return 'transparent';
+    }
   }
 
   resultView(color: string, key: number) {

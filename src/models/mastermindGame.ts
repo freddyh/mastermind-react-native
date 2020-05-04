@@ -1,19 +1,19 @@
 import ColorManager from './colorManager';
-import GameDifficulty from './gameDifficulty';
 import Guess from './guess';
 
 export default class MasterMindGame {
   public colorManager: ColorManager;
-  private secret: string[];
-
-  public maxGuessCount: number;
+  public maxGuessCount: number = 10;
   public currentGuessCount: number = 0;
   public guesses: Guess[];
   public selectedColor: string;
+  public activeRow: number = 0;
   private codeLength: number = 4;
+  private secret: string[];
 
   constructor(colorManager: ColorManager) {
     this.colorManager = colorManager;
+    this.activeRow = 0;
     this.selectedColor = '';
     this.guesses = this.generateRandomGuesses();
     this.maxGuessCount = 10;
@@ -40,5 +40,10 @@ export default class MasterMindGame {
       i++;
     }
     return result;
+  }
+
+  getGuessResults(guess: Guess[]) {
+    console.log(`...comparing guess with secret ${guess} ${this.secret}`);
+    return ['match', 'match', '', ''];
   }
 }

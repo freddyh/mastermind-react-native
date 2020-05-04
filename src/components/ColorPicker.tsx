@@ -5,7 +5,8 @@ import ColorButton from './ColorButton';
 import ColorManager from '../models/colorManager';
 
 type Props = {
-  colorManager: ColorManager
+  colorManager: ColorManager,
+  didSelectColor: (color: string) => void
 };
 
 type State = {
@@ -46,6 +47,7 @@ export default class ColorPicker extends Component<Props, State> {
             this.setState({
               selectedIndex: index
             });
+            this.props.didSelectColor(buttonKey);
             this.props.colorManager.selectedColor = buttonKey;
           }} />
       );
