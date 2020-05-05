@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
 import Guess from '../models/guess';
@@ -9,7 +9,6 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'brown',
     width: '100%',
     height: '100%',
   },
@@ -21,7 +20,12 @@ const style = StyleSheet.create({
     flexDirection: 'row',
   },
   selected: {
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    borderRadius: 10,
+    height: '100%',
+    width: '100%',
+    flex: 1
+
   }
 });
 
@@ -70,38 +74,30 @@ export default class GuessRow extends Component<Props, State> {
 
   render() {
     const buttons = this.props.guess.values.map((color: any, index: number) => {
-      const button = (
+      return (
         <ColorButton
           key={index}
           colorName={color}
           mutable={this.props.active}
-          colorManager={this.props.game.colorManager}
           callback={(buttonKey) => {
+            console.log(`selected index ${index}`)
             this.setState({
               selectedIndex: index
             })
           }} />
       );
-      if (this.props.active) {
-        if (index === this.state.selectedIndex) {
-          return (
-            <View
-              key={index}
-              style={style.selected}>
-              {button}
-            </View>
-          );
-        }
-      }
-      return button;
     });
+
+    const results = this.props.results.length > 0 ? (
+      <ResultsContainer
+        results={this.props.results}>
+      </ResultsContainer>
+    ) : null;
 
     const row = (
       <View style={style.row}>
         {buttons}
-        <ResultsContainer
-          results={this.props.results}>
-        </ResultsContainer>
+        {results}
       </View>
     );
 

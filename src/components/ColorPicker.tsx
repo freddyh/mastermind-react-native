@@ -21,11 +21,8 @@ const style = StyleSheet.create({
     flexDirection: 'column',
     height: '100%',
     alignItems: 'center',
-    alignContent: 'center',
+    alignContent: 'stretch',
     justifyContent: 'space-evenly',
-  },
-  selected: {
-    color: 'white',
   }
 });
 
@@ -37,7 +34,7 @@ export default class ColorPicker extends Component<Props, State> {
 
   render() {
     const colorsButtons = this.props.colorManager.colors.map((color: string, index: number) => {
-      const button = (
+      return (
         <ColorButton
           key={index}
           colorName={color}
@@ -51,15 +48,11 @@ export default class ColorPicker extends Component<Props, State> {
             this.props.colorManager.selectedColor = buttonKey;
           }} />
       );
-
-      if (this.state.selectedIndex === index) {
-        return (<View style={{ backgroundColor: 'black' }}>{button}</View>)
-      }
-      return (button);
     })
     return (
       <View style={style.container}>
         {colorsButtons}
-      </View>);
+      </View>
+    );
   }
 }

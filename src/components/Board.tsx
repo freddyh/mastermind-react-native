@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Button } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import GuessRow from './GuessRow';
 import ColorPicker from './ColorPicker';
 import Guess from '../models/guess';
-import GuessResult from '../models/guessResult';
+// import GuessResult from '../models/guessResult';
 
 type MyProps = {
   game: any;
@@ -22,15 +22,14 @@ export default class Board extends Component<MyProps, MyState> {
 
   constructor(props: MyProps) {
     super(props);
-    const results = [GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH, GuessResult.NO_MATCH];
     const guessRows = this.props.game.guesses.map((guess: Guess, index: number) => {
       return (
         <GuessRow
           game={this.props.game}
           guess={guess}
-          results={results}
-          active={this.props.game.activeRow === index}>
-        </GuessRow>
+          results={[]}
+          active={this.props.game.activeRow === index} >
+        </GuessRow >
       );
     });
     this.guessRows = guessRows;
@@ -50,9 +49,15 @@ export default class Board extends Component<MyProps, MyState> {
                 console.log(`color selected by color picker ${color}`);
               }} />
           </View>
-          <Button title="Submit" onPress={() => {
-            console.log("hello submit button");
-          }} />
+          <TouchableOpacity
+            style={style.submit}
+            onPress={() => {
+              console.log("hello submit button");
+            }}>
+            <Text>
+              Submit
+            </Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -63,7 +68,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'brown',
+    backgroundColor: '#8e2525',
     width: '100%',
     height: '100%',
     borderWidth: 2,
@@ -72,7 +77,6 @@ const style = StyleSheet.create({
   board: {
     flexDirection: 'column-reverse',
     flex: 1,
-    backgroundColor: 'brown',
     width: '70%',
     height: '100%',
   },
@@ -87,6 +91,11 @@ const style = StyleSheet.create({
   },
   submit: {
     height: '10%',
+    backgroundColor: '#DDDDDD',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
+    borderRadius: 8
   },
   row: {
     alignItems: 'center',

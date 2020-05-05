@@ -3,43 +3,42 @@ import GameDifficulty from './gameDifficulty';
 type Color = string;
 
 class ColorManager {
-  private easyColors = [
+  private allColors: Color[] = [
     'red',
     'orange',
     'yellow',
     'green',
     'blue',
     'indigo',
-    'violet'
-  ];
-  private mediumColors = [
+    'violet',
     'black',
     'white',
-    'brown'
-  ];
-  private hardColors = [
+    'brown',
     'gray',
     'cyan',
-    'olive'
+    'olive',
   ];
+
   public colors: string[];
   public selectedColor: Color;
 
   constructor(difficulty: GameDifficulty) {
+    let slice = 6;
+
     this.colors = [];
     switch (difficulty) {
       case GameDifficulty.EASY:
-        this.colors = this.easyColors;
         break;
       case GameDifficulty.MEDIUM:
-        this.colors = this.easyColors.concat(this.mediumColors);
+        slice += 3;
         break;
       case GameDifficulty.HARD:
-        this.colors = this.easyColors.concat(this.mediumColors, this.hardColors);
+        slice += 6;
         break;
       default:
         throw new Error(`-- ${difficulty} -- is not a valid difficulty `);
     }
+    this.colors = this.allColors.slice(0, slice);
     this.selectedColor = this.colors[0];
   }
 
