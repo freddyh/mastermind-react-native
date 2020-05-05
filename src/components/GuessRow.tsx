@@ -79,8 +79,8 @@ export default class GuessRow extends Component<Props, State> {
           key={index}
           colorName={color}
           mutable={this.props.active}
-          callback={(buttonKey) => {
-            console.log(`selected index ${index}`)
+          callback={(props) => {
+            console.log(`selected index ${index}`);
             this.setState({
               selectedIndex: index
             })

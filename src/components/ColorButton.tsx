@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import ColorManager from '../models/colorManager';
 
 type Props = {
-  callback: (buttonKey: string) => void,
+  callback: (props: Props) => void,
   colorName: any,
   mutable: boolean,
 };

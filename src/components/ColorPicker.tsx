@@ -39,13 +39,12 @@ export default class ColorPicker extends Component<Props, State> {
           key={index}
           colorName={color}
           mutable={false}
-          colorManager={this.props.colorManager}
-          callback={(buttonKey) => {
+          callback={(props) => {
             this.setState({
               selectedIndex: index
             });
-            this.props.didSelectColor(buttonKey);
-            this.props.colorManager.selectedColor = buttonKey;
+            this.props.didSelectColor(props.colorName);
+            this.props.colorManager.selectedColor = props.colorName;
           }} />
       );
     })
