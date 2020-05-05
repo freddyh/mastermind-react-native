@@ -5,13 +5,11 @@ import ColorButton from './ColorButton';
 import ColorManager from '../models/colorManager';
 
 type Props = {
-  colorManager: ColorManager,
-  didSelectColor: (color: string) => void
+  colorManager: ColorManager
 };
 
 type State = {
   selectedIndex: number,
-  selectedColor: string
 };
 
 const style = StyleSheet.create({
@@ -29,7 +27,6 @@ const style = StyleSheet.create({
 export default class ColorPicker extends Component<Props, State> {
   state = {
     selectedIndex: 0,
-    selectedColor: ''
   }
 
   render() {
@@ -39,12 +36,11 @@ export default class ColorPicker extends Component<Props, State> {
           key={index}
           colorName={color}
           mutable={false}
-          callback={(props) => {
+          callback={() => {
             this.setState({
               selectedIndex: index
             });
-            this.props.didSelectColor(props.colorName);
-            this.props.colorManager.selectedColor = props.colorName;
+            this.props.colorManager.colorSubject.next(color);
           }} />
       );
     })

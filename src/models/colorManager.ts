@@ -1,4 +1,5 @@
 import GameDifficulty from './gameDifficulty';
+import { BehaviorSubject } from 'rxjs';
 
 type Color = string;
 
@@ -19,8 +20,8 @@ class ColorManager {
     'olive',
   ];
 
-  public colors: string[];
-  public selectedColor: Color;
+  public colorSubject: BehaviorSubject<Color> = new BehaviorSubject('');
+  public colors: Color[];
 
   constructor(difficulty: GameDifficulty) {
     let slice = 6;
@@ -39,7 +40,6 @@ class ColorManager {
         throw new Error(`-- ${difficulty} -- is not a valid difficulty `);
     }
     this.colors = this.allColors.slice(0, slice);
-    this.selectedColor = this.colors[0];
   }
 
   random() {

@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity } from 'react-native';
 import ColorManager from '../models/colorManager';
 
 type Props = {
-  callback: (props: Props) => void,
+  callback: () => void,
   colorName: any,
   mutable: boolean,
 };
@@ -29,7 +29,7 @@ class ColorButton extends Component<Props, State> {
   };
 
   onPress = () => {
-    this.props.callback(this.props.colorName);
+    this.props.callback();
   }
 
   render() {

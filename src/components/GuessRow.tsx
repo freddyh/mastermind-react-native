@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
 import Guess from '../models/guess';
 import GuessResult from '../models/guessResult';
+import { Subscription } from 'rxjs';
 
 const style = StyleSheet.create({
   container: {
@@ -37,24 +38,25 @@ type Props = {
 };
 
 type State = {
-  isMutable: boolean;
   selectedIndex: number;
+  guess: Guess;
 };
 
 export default class GuessRow extends Component<Props, State> {
   state: State = {
-    isMutable: false,
     selectedIndex: 0,
+    guess: new Guess([])
   };
 
   public guess: Guess;
+  private sub: Subscription;
 
   constructor(props: Props) {
     super(props);
     this.guess = props.guess;
     this.state = {
-      isMutable: props.active,
-      selectedIndex: 0
+      selectedIndex: 0,
+      guess: props.guess
     };
   }
 
@@ -65,21 +67,38 @@ export default class GuessRow extends Component<Props, State> {
       next = 0;
     }
 
-    if (this.guess.values[next] === 'transparent') {
-      return next;
-    } else {
-      return this.nextIndex();
+    return next;
+  }
+
+  componentDidMount() {
+    if (!this.props.active) {
+      return;
     }
+    this.sub = this.props.game.colorManager.colorSubject.subscribe((color: string) => {
+      console.log(`GuessRow received color ${color}`);
+      if (!this.props.game.colorManager.colors.includes(color)) { return; }
+      this.setState((prevState, props) => {
+        let guess = prevState.guess;
+        const i = prevState.selectedIndex;
+        guess.values[i] = color;
+        guess.debugDescription();
+        return {
+          guess: guess,
+          selectedIndex: this.nextIndex()
+        }
+      })
+    });
+
   }
 
   render() {
-    const buttons = this.props.guess.values.map((color: any, index: number) => {
+    const buttons = this.state.guess.values.map((color: any, index: number) => {
       return (
         <ColorButton
           key={index}
           colorName={color}
           mutable={this.props.active}
-          callback={(props) => {
+          callback={() => {
             console.log(`selected index ${index}`);
             this.setState({
               selectedIndex: index
@@ -90,6 +109,7 @@ export default class GuessRow extends Component<Props, State> {
 
     const results = this.props.results.length > 0 ? (
       <ResultsContainer
+        key={buttons.length}
         results={this.props.results}>
       </ResultsContainer>
     ) : null;

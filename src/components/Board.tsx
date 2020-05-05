@@ -3,7 +3,6 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import GuessRow from './GuessRow';
 import ColorPicker from './ColorPicker';
 import Guess from '../models/guess';
-// import GuessResult from '../models/guessResult';
 
 type MyProps = {
   game: any;
@@ -28,7 +27,7 @@ export default class Board extends Component<MyProps, MyState> {
           game={this.props.game}
           guess={guess}
           results={[]}
-          active={this.props.game.activeRow === index} >
+          active={0 === index} >
         </GuessRow >
       );
     });
@@ -44,15 +43,12 @@ export default class Board extends Component<MyProps, MyState> {
         <View style={style.right}>
           <View style={style.picker}>
             <ColorPicker
-              colorManager={this.props.game.colorManager}
-              didSelectColor={(color: string) => {
-                console.log(`color selected by color picker ${color}`);
-              }} />
+              colorManager={this.props.game.colorManager} />
           </View>
           <TouchableOpacity
             style={style.submit}
             onPress={() => {
-              console.log("hello submit button");
+              console.log(`hello submit button`);
             }}>
             <Text>
               Submit
