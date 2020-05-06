@@ -6,6 +6,6 @@ export default class Guess {
   }
 
   debugDescription() {
-    this.values.forEach((val: string, index: number) => console.log(`DEBUG DESCRIPTION: ${val} ${index}`))
+    console.log(`DEBUG DESCRIPTION: ${this.values.join(`, `)}`);
   }
 };

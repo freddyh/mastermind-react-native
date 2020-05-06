@@ -24,6 +24,7 @@ export default class Board extends Component<MyProps, MyState> {
     const guessRows = this.props.game.guesses.map((guess: Guess, index: number) => {
       return (
         <GuessRow
+          key={index}
           game={this.props.game}
           guess={guess}
           results={[]}
