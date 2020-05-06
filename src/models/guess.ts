@@ -5,7 +5,7 @@ export default class Guess {
     this.values = values;
   }
 
-  debugDescription() {
-    console.log(`DEBUG DESCRIPTION: ${this.values.join(`, `)}`);
+  debugDescription(): string {
+    return `DEBUG DESCRIPTION: ${this.values.join(`, `)}`;
   }
 };

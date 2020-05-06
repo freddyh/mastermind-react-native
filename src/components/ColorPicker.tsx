@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
 
 import ColorButton from './ColorButton';
 import ColorManager from '../models/colorManager';
@@ -32,17 +32,21 @@ export default class ColorPicker extends Component<Props, State> {
   render() {
     const colorsButtons = this.props.colorManager.colors.map((color: string, index: number) => {
       return (
-        <ColorButton
+        <TouchableOpacity
           key={index}
-          colorName={color}
-          mutable={false}
-          callback={() => {
+          style={{
+            width: 50,
+            height: 50,
+            borderRadius: 25,
+            backgroundColor: color,  
+          }}
+          onPress={() => {
             this.setState({
               selectedIndex: index
             });
             this.props.colorManager.colorSubject.next(color);
-          }} />
-      );
+            }}>
+        </TouchableOpacity>);
     })
     return (
       <View style={style.container}>

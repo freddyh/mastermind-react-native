@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import ColorButton from './ColorButton';
+import { StyleSheet, View, TouchableOpacity } from 'react-native';
+// import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
 import Guess from '../models/guess';
 import GuessResult from '../models/guessResult';
@@ -49,7 +49,7 @@ export default class GuessRow extends Component<Props, State> {
   };
 
   public guess: Guess;
-  private sub: Subscription;
+  private sub: Subscription | undefined;
 
   constructor(props: Props) {
     super(props);
@@ -75,36 +75,37 @@ export default class GuessRow extends Component<Props, State> {
       return;
     }
     this.sub = this.props.game.colorManager.colorSubject.subscribe((color: string) => {
-      console.log(`GuessRow received color ${color}`);
       if (!this.props.game.colorManager.colors.includes(color)) { return; }
       this.setState((prevState, props) => {
         let guess = prevState.guess;
         const i = prevState.selectedIndex;
         guess.values[i] = color;
-        guess.debugDescription();
         return {
           guess: guess,
           selectedIndex: this.nextIndex()
         }
       })
     });
-
   }
 
   render() {
     const buttons = this.state.guess.values.map((color: any, index: number) => {
-      return (
-        <ColorButton
-          key={index}
-          colorName={color}
-          mutable={this.props.active}
-          callback={() => {
-            console.log(`selected index ${index}`);
-            this.setState({
-              selectedIndex: index
-            })
-          }} />
-      );
+      return (<TouchableOpacity
+        key={index}
+        style={{
+          width: 50,
+          height: 50,
+          borderRadius: 25,
+          borderColor: true ? '#cccccc' : 'transparent',
+          borderWidth: 2,
+          backgroundColor: color,  
+        }}
+        onPress={() => {
+          this.setState({
+            selectedIndex: index
+          });
+        }}>
+      </TouchableOpacity>);
     });
 
     const results = this.props.results.length > 0 ? (
