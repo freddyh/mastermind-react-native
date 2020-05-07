@@ -1,14 +1,14 @@
 import ColorManager from './colorManager';
-import Guess from './guess';
+import Code, { CodeComparisonResult } from './code';
 import GameDifficulty from './gameDifficulty';
 
 export default class MasterMindGame {
   public colorManager: ColorManager;
   public maxGuessCount: number = 10;
   public currentGuessCount: number = 0;
-  public guesses: Guess[];
+  public guesses: Code[];
   public codeLength: number = 4;
-  private secret: string[];
+  private secret: Code;
 
   static init(difficulty: GameDifficulty = GameDifficulty.EASY) {
     const manager = new ColorManager(difficulty);
@@ -19,15 +19,17 @@ export default class MasterMindGame {
     this.colorManager = colorManager;
     this.guesses = this.generateEmptyGuesses();
     this.maxGuessCount = 10;
-    this.secret = this.randomColors(this.codeLength);
+    this.secret = new Code(new Array(this.codeLength).fill('').map((v) => this.colorManager.random()));
+    // console.log(`SECRET CODE: ${this.secret.debugDescription()}`)
+    // this.randomColors(this.codeLength);
   }
 
-  generateEmptyGuesses(): Guess[] {
-    const guesses: Guess[] = [];
+  generateEmptyGuesses(): Code[] {
+    const guesses: Code[] = [];
     let i = 0;
     const count = 10;
     while (i < count) {
-      guesses.push(new Guess(Array(this.codeLength).fill('transparent')));
+      guesses.push(new Code(Array(this.codeLength).fill('transparent')));
       i++;
     }
     return guesses;
@@ -43,7 +45,14 @@ export default class MasterMindGame {
     return result;
   }
 
-  submitGuess(guess: Guess): void {
-    console.log(`guess: ${guess.debugDescription()} vs secret ${this.secret.join(`, `)}`);
+  submitGuess(guess: Code): void {
+    console.log(`guess:`);
+    console.log(`vs`);
+    console.log(`secret \n\n`);
+    console.log(`${guess.debugDescription()}`);
+    console.log(`${this.secret.debugDescription()}`);
+    const resultsa: CodeComparisonResult[] = guess.compareCode(this.secret);
+    const resultsb: CodeComparisonResult[] = this.secret.compareCode(guess);
+    console.log(`\n\nresults:\n${resultsa}\n\n${resultsb}`);
   }
 }

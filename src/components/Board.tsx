@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import GuessRow from './GuessRow';
 import ColorPicker from './ColorPicker';
-import Guess from '../models/guess';
+import Code from '../models/code';
 
 type MyProps = {
   game: any;
@@ -21,7 +21,7 @@ export default class Board extends Component<MyProps, MyState> {
 
   constructor(props: MyProps) {
     super(props);
-    const guessRows = this.props.game.guesses.map((guess: Guess, index: number) => {
+    const guessRows = this.props.game.guesses.map((guess: Code, index: number) => {
       return (
         <GuessRow
           key={index}

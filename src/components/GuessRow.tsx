@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import ResultsContainer from './ResultsContainer';
-import Guess from '../models/guess';
+import Code from '../models/code';
 import GuessResult from '../models/guessResult';
 import { Subscription } from 'rxjs';
 
@@ -31,23 +31,23 @@ const style = StyleSheet.create({
 
 type Props = {
   game: any;
-  guess: Guess;
+  guess: Code;
   results: GuessResult[];
   active: boolean;
 };
 
 type State = {
   selectedIndex: number;
-  guess: Guess;
+  guess: Code;
 };
 
 export default class GuessRow extends Component<Props, State> {
   state: State = {
     selectedIndex: 0,
-    guess: new Guess([])
+    guess: new Code([])
   };
 
-  public guess: Guess;
+  public guess: Code;
   private sub: Subscription | undefined;
 
   constructor(props: Props) {
