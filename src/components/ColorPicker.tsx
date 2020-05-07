@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-
-import ColorButton from './ColorButton';
 import ColorManager from '../models/colorManager';
 
 type Props = {
@@ -38,14 +36,14 @@ export default class ColorPicker extends Component<Props, State> {
             width: 50,
             height: 50,
             borderRadius: 25,
-            backgroundColor: color,  
+            backgroundColor: color,
           }}
           onPress={() => {
             this.setState({
               selectedIndex: index
             });
             this.props.colorManager.colorSubject.next(color);
-            }}>
+          }}>
         </TouchableOpacity>);
     })
     return (

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-// import ColorButton from './ColorButton';
 import ResultsContainer from './ResultsContainer';
 import Guess from '../models/guess';
 import GuessResult from '../models/guessResult';
@@ -88,6 +87,10 @@ export default class GuessRow extends Component<Props, State> {
     });
   }
 
+  componentWillUnmount() {
+    this.sub?.unsubscribe();
+  }
+
   render() {
     const buttons = this.state.guess.values.map((color: any, index: number) => {
       return (<TouchableOpacity
@@ -98,7 +101,7 @@ export default class GuessRow extends Component<Props, State> {
           borderRadius: 25,
           borderColor: true ? '#cccccc' : 'transparent',
           borderWidth: 2,
-          backgroundColor: color,  
+          backgroundColor: color,
         }}
         onPress={() => {
           this.setState({

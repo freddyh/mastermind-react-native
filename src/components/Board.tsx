@@ -49,7 +49,7 @@ export default class Board extends Component<MyProps, MyState> {
           <TouchableOpacity
             style={style.submit}
             onPress={() => {
-              console.log(`hello submit button`);
+              this.props.game.submitGuess(this.props.game.guesses[0]);
             }}>
             <Text>
               Submit

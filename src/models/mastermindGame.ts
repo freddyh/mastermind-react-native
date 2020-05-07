@@ -42,4 +42,8 @@ export default class MasterMindGame {
     }
     return result;
   }
+
+  submitGuess(guess: Guess): void {
+    console.log(`guess: ${guess.debugDescription()} vs secret ${this.secret.join(`, `)}`);
+  }
 }
