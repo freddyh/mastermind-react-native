@@ -3,13 +3,6 @@ import { StyleSheet, View } from 'react-native';
 import GuessResult from '../models/guessResult';
 
 const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'column',
-    maxWidth: 15 * 5,
-    width: 15 * 5,
-    height: '80%'
-  },
   row: {
     width: '100%',
     maxHeight: '50%',
@@ -48,25 +41,23 @@ class ResultsContainer extends Component<Props> {
   }
 
   resultView(color: string, key: number) {
-    const style = StyleSheet.create({
-      main: {
-        borderRadius: 25,
-        width: 15,
-        height: 15,
-        backgroundColor: color,
-        borderColor: color === 'transparent' ? 'black' : color,
-        borderWidth: color === 'transparent' ? 1 : 0
-      }
-    });
     return (
       <View
         key={key}
-        style={style.main}>
+        style={{
+          borderRadius: 25,
+          width: 15,
+          height: 15,
+          backgroundColor: color,
+          borderColor: color === 'transparent' ? 'black' : color,
+          borderWidth: color === 'transparent' ? 1 : 0
+        }}>
       </View>
     );
   }
 
   render() {
+    console.log(`render ResultsContainer`);
     let first = this.resultsColors.slice(0, 2).map((color, index) => {
       return this.resultView(color, index);
     });
@@ -74,7 +65,13 @@ class ResultsContainer extends Component<Props> {
       return this.resultView(color, index);
     });
     return (
-      <View style={style.container}>
+      <View style={{
+        flex: 1,
+        flexDirection: 'column',
+        maxWidth: 15 * 5,
+        width: 15 * 5,
+        height: '80%'
+      }}>
         <View style={style.row}>
           {first}
         </View>

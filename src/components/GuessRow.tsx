@@ -92,6 +92,7 @@ export default class GuessRow extends Component<Props, State> {
   }
 
   render() {
+    console.log(`render GuessRow`);
     const buttons = this.state.guess.values.map((color: any, index: number) => {
       return (<TouchableOpacity
         key={index}
@@ -111,6 +112,7 @@ export default class GuessRow extends Component<Props, State> {
       </TouchableOpacity>);
     });
 
+    
     const results = this.props.results.length > 0 ? (
       <ResultsContainer
         key={buttons.length}
