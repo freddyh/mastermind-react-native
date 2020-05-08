@@ -20,8 +20,6 @@ export default class MasterMindGame {
     this.guesses = this.generateEmptyGuesses();
     this.maxGuessCount = 10;
     this.secret = new Code(new Array(this.codeLength).fill('').map((v) => this.colorManager.random()));
-    // console.log(`SECRET CODE: ${this.secret.debugDescription()}`)
-    // this.randomColors(this.codeLength);
   }
 
   generateEmptyGuesses(): Code[] {

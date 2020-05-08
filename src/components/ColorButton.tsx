@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
-import ColorManager from '../models/colorManager';
+import { TouchableOpacity } from 'react-native';
 
 type Props = {
   callback: () => void,
@@ -8,49 +7,24 @@ type Props = {
   mutable: boolean,
 };
 
-type State = {
-  colorName: any,
-  mutable: boolean
-};
-
-class ColorButton extends Component<Props, State> {
-  state: State = {
-    colorName: null,
-    mutable: false
-  };
-
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      colorName: props.colorName,
-      mutable: props.mutable
-    };
-  };
-
+export default class ColorButton extends Component<Props> {
   onPress = () => {
     this.props.callback();
   }
 
   render() {
-    const style = StyleSheet.create({
-      container: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
-        borderColor: this.state.mutable ? '#cccccc' : 'transparent',
-        borderWidth: this.state.mutable ? 2 : 0,
-        backgroundColor: this.state.colorName,
-      }
-    });
-
     return (
       <TouchableOpacity
-        style={style.container}
+        style={{
+          width: 50,
+          height: 50,
+          borderRadius: 25,
+          borderColor: this.props.mutable ? '#cccccc' : 'transparent',
+          borderWidth: this.props.mutable ? 2 : 0,
+          backgroundColor: this.props.colorName,
+        }}
         onPress={this.onPress}>
       </TouchableOpacity>
     );
   }
 }
-
-export default ColorButton;
