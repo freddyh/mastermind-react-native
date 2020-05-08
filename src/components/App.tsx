@@ -1,19 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import Game from './Game';
 import MasterMindGame from '../models/mastermindGame';
 import GameDifficulty from '../models/gameDifficulty';
 
-export default function App() {
-  const game = MasterMindGame.init(GameDifficulty.HARD);
-  return (
-    <View style={style.container}>
-      <View style={style.game}>
-        <Game game={game}></Game>
+export default class App extends Component {
+  render() {
+    console.log(`render App`);
+    const game = MasterMindGame.init(GameDifficulty.HARD);
+    return (
+      <View style={style.container}>
+        <View style={style.game}>
+          <Game game={game}></Game>
+        </View>
       </View>
-    </View>
-  );
-};
+    );  
+  }  
+}
 
 const style = StyleSheet.create({
   container: {

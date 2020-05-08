@@ -12,11 +12,13 @@ export default class Game extends Component<MyProps> {
     console.log(`render Game`);
     return (
       <View style={style.container}>
-        <Board game={this.props.game}></Board>
+        <Board game={this.props.game}>
+        </Board>
         <View style={style.right}>
           <View style={style.picker}>
             <ColorPicker
-              colorManager={this.props.game.colorManager} />
+              colorManager={this.props.game.colorManager}>
+            </ColorPicker>
           </View>
           <TouchableOpacity
             style={style.submit}

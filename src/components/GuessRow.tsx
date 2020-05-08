@@ -112,6 +112,7 @@ export default class GuessRow extends Component<Props, State> {
       </TouchableOpacity>);
     });
 
+    
     const results = this.props.results.length > 0 ? (
       <ResultsContainer
         key={buttons.length}

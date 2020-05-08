@@ -45,15 +45,10 @@ export default class MasterMindGame {
   }
 
   submitGuess(guess: Code): void {
-    // console.log(`guess:`);
-    // console.log(`vs`);
     console.log(`\n\n`);
     console.log(`guess:\t${guess.debugDescription()}`);
     console.log(`secret:\t${this.secret.debugDescription()}`);
-    const resultsa: CodeComparisonResult[] = guess.compareCode(this.secret);
-    // const resultsb: CodeComparisonResult[] = this.secret.compareCode(guess);
-    console.log(`\n\n`);
-    console.log(`results:\t${resultsa}`);
-    // console.log(`results:\t${resultsb}`);
+    const results: CodeComparisonResult[] = guess.compareCode(this.secret);
+    console.log(`results:\t${results.map(result => result.toString())}`);
   }
 }
