@@ -8,12 +8,8 @@ type MyProps = {
 };
 
 export default class Game extends Component<MyProps> {
-
-  constructor(props: MyProps) {
-    super(props);
-  }
-
   render() {
+    console.log(`render Game`);
     return (
       <View style={style.container}>
         <Board game={this.props.game}></Board>

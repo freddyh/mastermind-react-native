@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { View } from 'react-native';
 import GuessRow from './GuessRow';
 import Code from '../models/code';
 
@@ -27,19 +27,16 @@ export default class Board extends Component<MyProps> {
   }
 
   render() {
+    console.log(`render Board`);
     return (
-      <View style={style.board}>
+      <View style={{
+        flexDirection: 'column-reverse',
+        flex: 1,
+        width: '70%',
+        height: '100%',
+      }}>
         {this.guessRows}
       </View>
     );
   }
 };
-
-const style = StyleSheet.create({
-  board: {
-    flexDirection: 'column-reverse',
-    flex: 1,
-    width: '70%',
-    height: '100%',
-  },
-});

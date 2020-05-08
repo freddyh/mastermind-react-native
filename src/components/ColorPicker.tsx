@@ -6,10 +6,6 @@ type Props = {
   colorManager: ColorManager
 };
 
-type State = {
-  selectedIndex: number,
-};
-
 const style = StyleSheet.create({
   container: {
     width: '100%',
@@ -22,12 +18,9 @@ const style = StyleSheet.create({
   }
 });
 
-export default class ColorPicker extends Component<Props, State> {
-  state = {
-    selectedIndex: 0,
-  }
-
+export default class ColorPicker extends Component<Props> {
   render() {
+    console.log(`render ColorPicker`);
     const colorsButtons = this.props.colorManager.colors.map((color: string, index: number) => {
       return (
         <TouchableOpacity
@@ -39,9 +32,6 @@ export default class ColorPicker extends Component<Props, State> {
             backgroundColor: color,
           }}
           onPress={() => {
-            this.setState({
-              selectedIndex: index
-            });
             this.props.colorManager.colorSubject.next(color);
           }}>
         </TouchableOpacity>);
