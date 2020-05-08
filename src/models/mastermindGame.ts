@@ -1,6 +1,6 @@
 import ColorManager from './colorManager';
 import Code, { CodeComparisonResult } from './code';
-import GameDifficulty from './gameDifficulty';
+import GameDifficulty, { GameConfiguration } from './gameDifficulty';
 
 export default class MasterMindGame {
   public colorManager: ColorManager;
@@ -11,7 +11,8 @@ export default class MasterMindGame {
   private secret: Code;
 
   static init(difficulty: GameDifficulty = GameDifficulty.EASY) {
-    const manager = new ColorManager(difficulty);
+    const config = GameConfiguration.create(difficulty);
+    const manager = new ColorManager(config);
     return new MasterMindGame(manager);
   }
 
@@ -50,9 +51,9 @@ export default class MasterMindGame {
     console.log(`guess:\t${guess.debugDescription()}`);
     console.log(`secret:\t${this.secret.debugDescription()}`);
     const resultsa: CodeComparisonResult[] = guess.compareCode(this.secret);
-    const resultsb: CodeComparisonResult[] = this.secret.compareCode(guess);
+    // const resultsb: CodeComparisonResult[] = this.secret.compareCode(guess);
     console.log(`\n\n`);
     console.log(`results:\t${resultsa}`);
-    console.log(`results:\t${resultsb}`);
+    // console.log(`results:\t${resultsb}`);
   }
 }

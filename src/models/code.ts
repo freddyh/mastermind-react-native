@@ -23,30 +23,31 @@ export default class Code {
 
     for (let i = 0; i < a.length; i++) {
       for (let j = 0; j < b.length; j++) {
-
-        // if (burned.includes(j)) { continue; }
+        // console.log(`i: ${i}, j: ${j}`);
 
         const colorMatch = a[i] === b[j];
         if (i === j && colorMatch) {
           results.push(CodeComparisonResult.COLOR_POSITION_MATCH);
           burned.push(j);
+          // console.log(`full match, burn ${j}, break`);
           break;
         }
 
         if (burned.includes(j)) {
+          // console.log(`${j} is burned, continue`);
           continue;
         }
 
         const willBeColorMatch = a[j] === b[j];
         if (willBeColorMatch) {
-          results.push(CodeComparisonResult.COLOR_POSITION_MATCH);
-          burned.push(j);
+          // console.log(`predict full match, burn ${j}, break`);
           continue;
         }
 
         if (colorMatch) {
           results.push(CodeComparisonResult.COLOR_MATCH);
           burned.push(j);
+          // console.log(`got a match, burn ${j}, break`);
           break;
         }
       }
