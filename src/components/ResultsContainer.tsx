@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import GuessResult from '../models/guessResult';
+import { CodeComparisonResult } from '../models/code';
 
 const style = StyleSheet.create({
   row: {
@@ -16,30 +16,10 @@ const style = StyleSheet.create({
 });
 
 type Props = {
-  results: GuessResult[]
+  results: CodeComparisonResult[]
 };
 
 class ResultsContainer extends Component<Props> {
-  private resultsColors: string[];
-
-  constructor(props: Props) {
-    super(props);
-    this.resultsColors = props.results.map((result: GuessResult) => {
-      return this.resultColor(result);
-    });
-  }
-
-  resultColor(result: GuessResult) {
-    switch (result) {
-      case GuessResult.COLOR_MATCH:
-        return 'white';
-      case GuessResult.COLOR_POSITION_MATCH:
-        return 'black';
-      case GuessResult.NO_MATCH:
-        return 'transparent';
-    }
-  }
-
   resultView(color: string, key: number) {
     return (
       <View
@@ -49,8 +29,6 @@ class ResultsContainer extends Component<Props> {
           width: 15,
           height: 15,
           backgroundColor: color,
-          borderColor: color === 'transparent' ? 'black' : color,
-          borderWidth: color === 'transparent' ? 1 : 0
         }}>
       </View>
     );
@@ -58,10 +36,15 @@ class ResultsContainer extends Component<Props> {
 
   render() {
     console.log(`render ResultsContainer`);
-    let first = this.resultsColors.slice(0, 2).map((color, index) => {
+    const results = this.props.results.map(result => result.toString());
+    const emptyResults = 4 - results.length;
+    for (let i = 0; i < emptyResults; i++) {
+      results.push('#7a1f1f');
+    }
+    const first = results.slice(0, 2).map((color, index) => {
       return this.resultView(color, index);
     });
-    let second = this.resultsColors.slice(2, 4).map((color, index) => {
+    const second = results.slice(2, 4).map((color, index) => {
       return this.resultView(color, index);
     });
     return (
@@ -72,10 +55,10 @@ class ResultsContainer extends Component<Props> {
         width: 15 * 5,
         height: '80%'
       }}>
-        <View style={style.row}>
+        <View key={1} style={style.row}>
           {first}
         </View>
-        <View style={style.row}>
+        <View key={2} style={style.row}>
           {second}
         </View>
       </View>

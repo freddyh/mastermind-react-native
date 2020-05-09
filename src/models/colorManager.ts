@@ -1,4 +1,4 @@
-import GameDifficulty, { GameConfiguration } from './gameDifficulty';
+import { GameConfiguration } from './gameDifficulty';
 import { BehaviorSubject } from 'rxjs';
 
 class ColorManager {

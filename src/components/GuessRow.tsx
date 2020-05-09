@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import ResultsContainer from './ResultsContainer';
-import Code from '../models/code';
-import GuessResult from '../models/guessResult';
+import Code, { CodeComparisonResult } from '../models/code';
 import { Subscription } from 'rxjs';
 
 const style = StyleSheet.create({
@@ -32,7 +31,7 @@ const style = StyleSheet.create({
 type Props = {
   game: any;
   guess: Code;
-  results: GuessResult[];
+  results: CodeComparisonResult[];
   active: boolean;
 };
 
@@ -112,7 +111,6 @@ export default class GuessRow extends Component<Props, State> {
       </TouchableOpacity>);
     });
 
-    
     const results = this.props.results.length > 0 ? (
       <ResultsContainer
         key={buttons.length}

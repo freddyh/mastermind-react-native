@@ -7,6 +7,7 @@ export default class MasterMindGame {
   public maxGuessCount: number = 10;
   public currentGuessCount: number = 0;
   public guesses: Code[];
+  public results: CodeComparisonResult[][];
   public codeLength: number = 4;
   private secret: Code;
 
@@ -19,6 +20,7 @@ export default class MasterMindGame {
   private constructor(colorManager: ColorManager) {
     this.colorManager = colorManager;
     this.guesses = this.generateEmptyGuesses();
+    this.results = this.generateRandomResults();
     this.maxGuessCount = 10;
     this.secret = new Code(new Array(this.codeLength).fill('').map((v) => this.colorManager.random()));
   }
@@ -26,12 +28,22 @@ export default class MasterMindGame {
   generateEmptyGuesses(): Code[] {
     const guesses: Code[] = [];
     let i = 0;
-    const count = 10;
+    const count = this.maxGuessCount;
     while (i < count) {
       guesses.push(new Code(Array(this.codeLength).fill('transparent')));
       i++;
     }
     return guesses;
+  }
+
+  generateRandomResults(): CodeComparisonResult[][] {
+    const results: CodeComparisonResult[][] = [];
+    for (let i = 0; i < this.maxGuessCount; i++) {
+      const length = 1 + (Math.floor((this.codeLength - 1) * Math.random()));
+      const random = this.randomResults(length);
+      results.push(random);
+    }
+    return results;
   }
 
   randomColors(size: number): string[] {
@@ -42,6 +54,18 @@ export default class MasterMindGame {
       i++;
     }
     return result;
+  }
+
+  randomResult(): CodeComparisonResult {
+    return Math.random() < 0.5 ? CodeComparisonResult.FULL_MATCH : CodeComparisonResult.PARTIAL_MATCH;
+  }
+
+  randomResults(length: number): CodeComparisonResult[] {
+    let results: CodeComparisonResult[] = [];
+    for (let i = 0; i < length; i++) {
+      results.push(this.randomResult());
+    }
+    return results;
   }
 
   submitGuess(guess: Code): void {

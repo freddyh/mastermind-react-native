@@ -12,13 +12,14 @@ export default class Board extends Component<MyProps> {
 
   constructor(props: MyProps) {
     super(props);
+
     const guessRows = this.props.game.guesses.map((guess: Code, index: number) => {
       return (
         <GuessRow
           key={index}
           game={this.props.game}
           guess={guess}
-          results={[]}
+          results={this.props.game.results[index]}
           active={0 === index} >
         </GuessRow >
       );
