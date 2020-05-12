@@ -69,6 +69,7 @@ export default class MasterMindGame {
   }
 
   submitGuess(guess: Code): void {
+    this.currentGuessCount += 1;
     console.log(`\n\n`);
     console.log(`guess:\t${guess.debugDescription()}`);
     console.log(`secret:\t${this.secret.debugDescription()}`);

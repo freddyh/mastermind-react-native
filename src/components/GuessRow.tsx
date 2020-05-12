@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
-import ResultsContainer from './ResultsContainer';
-import Code, { CodeComparisonResult } from '../models/code';
+import Code from '../models/code';
 import { Subscription } from 'rxjs';
 
 const style = StyleSheet.create({
@@ -24,15 +23,12 @@ const style = StyleSheet.create({
     height: '100%',
     width: '100%',
     flex: 1
-
   }
 });
 
 type Props = {
   game: any;
   guess: Code;
-  results: CodeComparisonResult[];
-  active: boolean;
 };
 
 type State = {
@@ -69,9 +65,6 @@ export default class GuessRow extends Component<Props, State> {
   }
 
   componentDidMount() {
-    if (!this.props.active) {
-      return;
-    }
     this.sub = this.props.game.colorManager.colorSubject.subscribe((color: string) => {
       if (!this.props.game.colorManager.colors.includes(color)) { return; }
       this.setState((prevState, props) => {
@@ -111,17 +104,9 @@ export default class GuessRow extends Component<Props, State> {
       </TouchableOpacity>);
     });
 
-    const results = this.props.results.length > 0 ? (
-      <ResultsContainer
-        key={buttons.length}
-        results={this.props.results}>
-      </ResultsContainer>
-    ) : null;
-
     const row = (
       <View style={style.row}>
         {buttons}
-        {results}
       </View>
     );
 

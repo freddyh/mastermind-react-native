@@ -48,7 +48,7 @@ const style = StyleSheet.create({
   right: {
     flex: 1,
     flexDirection: 'column',
-    maxWidth: '30%',
+    maxWidth: '20%',
   },
   picker: {
     width: '100%',

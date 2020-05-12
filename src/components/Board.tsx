@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { View } from 'react-native';
 import GuessRow from './GuessRow';
 import Code from '../models/code';
+import ResultsContainer from './ResultsContainer';
 
 type MyProps = {
   game: any;
@@ -15,13 +16,27 @@ export default class Board extends Component<MyProps> {
 
     const guessRows = this.props.game.guesses.map((guess: Code, index: number) => {
       return (
-        <GuessRow
+        <View
           key={index}
-          game={this.props.game}
-          guess={guess}
-          results={this.props.game.results[index]}
-          active={0 === index} >
-        </GuessRow >
+          style={{
+            flex: 1,
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignContent: 'center',
+            width: '100%',
+            height: '100%',
+            borderColor: this.props.game.currentGuessCount === index ? 'green' : 'transparent',
+            borderWidth: 2,
+            borderRadius: 10
+          }}>
+          <GuessRow
+            key={index}
+            game={this.props.game}
+            guess={guess}>
+          </GuessRow >
+          <ResultsContainer results={this.props.game.results[index]}>
+          </ResultsContainer>
+        </View>
       );
     });
     this.guessRows = guessRows;
