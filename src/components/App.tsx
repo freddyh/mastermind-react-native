@@ -25,6 +25,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
+    backgroundColor: 'black'
   },
   game: {
     width: '100%',
