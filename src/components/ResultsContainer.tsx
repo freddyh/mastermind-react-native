@@ -43,7 +43,7 @@ class ResultsContainer extends Component<Props> {
     const results = r.map(result => result.toString());
     const emptyResults = 4 - results.length;
     for (let i = 0; i < emptyResults; i++) {
-      results.push('#7a1f1f');
+      results.push('#004d39');
     }
     const first = results.slice(0, 2).map((color, index) => {
       return this.resultView(color, index);

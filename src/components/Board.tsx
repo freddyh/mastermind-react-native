@@ -22,7 +22,7 @@ export default class Board extends Component<Props> {
         height: '100%',
       }}>
         {this.props.guesses.map((guess: Code, index: number) => {
-
+          const i = this.props.results.length;
           return (
             <View
               key={index}
@@ -33,15 +33,15 @@ export default class Board extends Component<Props> {
                 alignContent: 'center',
                 width: '100%',
                 height: '100%',
-                borderColor: this.props.results.length === index ? 'green' : 'transparent',
-                borderWidth: 2,
+                borderColor: i === index ? '#004d39' : 'transparent',
+                borderWidth: 5,
                 borderRadius: 10
               }}>
               <GuessRow
                 key={index}
                 game={this.props.game}
                 guess={guess}
-                isSuspended={this.props.results.length !== index}>
+                isSuspended={i !== index}>
               </GuessRow >
               <ResultsContainer
                 results={this.props.results[index]}>

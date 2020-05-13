@@ -58,7 +58,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: '#8e2525',
+    backgroundColor: '#007558', // board color
     width: '100%',
     height: '100%',
     borderWidth: 2,

@@ -16,13 +16,6 @@ const style = StyleSheet.create({
     justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
-  },
-  selected: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    height: '100%',
-    width: '100%',
-    flex: 1
   }
 });
 
@@ -96,7 +89,7 @@ export default class GuessRow extends Component<Props, State> {
           width: 50,
           height: 50,
           borderRadius: 25,
-          borderColor: true ? '#cccccc' : 'transparent',
+          borderColor: '#004d39',
           borderWidth: 2,
           backgroundColor: color,
         }}
