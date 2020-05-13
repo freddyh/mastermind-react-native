@@ -29,6 +29,7 @@ const style = StyleSheet.create({
 type Props = {
   game: any;
   guess: Code;
+  isSuspended: boolean;
 };
 
 type State = {
@@ -66,6 +67,9 @@ export default class GuessRow extends Component<Props, State> {
 
   componentDidMount() {
     this.sub = this.props.game.colorManager.colorSubject.subscribe((color: string) => {
+      if (this.props.isSuspended) {
+        return;
+      }
       if (!this.props.game.colorManager.colors.includes(color)) { return; }
       this.setState((prevState, props) => {
         let guess = prevState.guess;

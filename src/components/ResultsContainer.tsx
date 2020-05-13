@@ -36,7 +36,11 @@ class ResultsContainer extends Component<Props> {
 
   render() {
     console.log(`render ResultsContainer`);
-    const results = this.props.results.map(result => result.toString());
+    let r: CodeComparisonResult[] = [];
+    if (!!this.props.results) {
+      r = this.props.results;
+    }
+    const results = r.map(result => result.toString());
     const emptyResults = 4 - results.length;
     for (let i = 0; i < emptyResults; i++) {
       results.push('#7a1f1f');

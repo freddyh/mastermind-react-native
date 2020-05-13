@@ -2,17 +2,33 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import Board from './Board';
 import ColorPicker from './ColorPicker';
+import Code, { CodeComparisonResult } from '../models/code';
 
-type MyProps = {
+type Props = {
   game: any;
 };
 
-export default class Game extends Component<MyProps> {
+type State = {
+  guesses: Code[];
+  results: CodeComparisonResult[][];
+}
+
+export default class Game extends Component<Props, State> {
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      guesses: this.props.game.guesses,
+      results: this.props.game.results
+    }
+  }
   render() {
     console.log(`render Game`);
     return (
       <View style={style.container}>
-        <Board game={this.props.game}>
+        <Board
+          game={this.props.game}
+          guesses={this.state.guesses}
+          results={this.state.results}>
         </Board>
         <View style={style.right}>
           <View style={style.picker}>
@@ -23,7 +39,10 @@ export default class Game extends Component<MyProps> {
           <TouchableOpacity
             style={style.submit}
             onPress={() => {
-              this.props.game.submitGuess(this.props.game.guesses[0]);
+              const i = this.props.game.results.length;
+              const g = this.props.game.guesses[i];
+              const results = this.props.game.submitGuess(g);
+              this.setState({ results: results });
             }}>
             <Text>
               Submit

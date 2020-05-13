@@ -20,9 +20,10 @@ export default class MasterMindGame {
   private constructor(colorManager: ColorManager) {
     this.colorManager = colorManager;
     this.guesses = this.generateEmptyGuesses();
-    this.results = this.generateRandomResults();
+    this.results = [];
     this.maxGuessCount = 10;
-    this.secret = new Code(new Array(this.codeLength).fill('').map((v) => this.colorManager.random()));
+    const randomColors = new Array(this.codeLength).fill('').map((v) => this.colorManager.random());
+    this.secret = new Code(randomColors);
   }
 
   generateEmptyGuesses(): Code[] {
@@ -68,12 +69,14 @@ export default class MasterMindGame {
     return results;
   }
 
-  submitGuess(guess: Code): void {
+  submitGuess(guess: Code): CodeComparisonResult[][] {
     this.currentGuessCount += 1;
     console.log(`\n\n`);
     console.log(`guess:\t${guess.debugDescription()}`);
     console.log(`secret:\t${this.secret.debugDescription()}`);
     const results: CodeComparisonResult[] = guess.compareCode(this.secret);
     console.log(`results:\t${results.map(result => result.toString())}`);
+    this.results.push(results);
+    return this.results;
   }
 }
