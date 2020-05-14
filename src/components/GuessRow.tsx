@@ -6,7 +6,7 @@ import MasterMindGame from '../models/mastermindGame';
 
 type Props = {
   game: MasterMindGame;
-  guess: Code;
+  code: Code;
   isSuspended: boolean;
   handleColorSelected: (color: string, index: number) => void;
 };
@@ -20,12 +20,12 @@ export default class GuessRow extends Component<Props, State> {
     selectedIndex: 0,
   };
 
-  public guess: Code;
+  public code: Code;
   private sub: Subscription | undefined;
 
   constructor(props: Props) {
     super(props);
-    this.guess = props.guess;
+    this.code = props.code;
     this.state = {
       selectedIndex: 0,
     };
@@ -60,7 +60,7 @@ export default class GuessRow extends Component<Props, State> {
 
   render() {
     console.log(`render GuessRow`);
-    const buttons = this.props.guess.values.map((color: any, index: number) => {
+    const buttons = this.props.code.values.map((color: any, index: number) => {
       return (<TouchableOpacity
         key={index}
         style={{

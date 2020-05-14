@@ -10,7 +10,7 @@ type Props = {
 };
 
 type State = {
-  guesses: Code[];
+  codes: Code[];
   results: CodeComparisonResult[][];
 }
 
@@ -18,7 +18,7 @@ export default class Game extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      guesses: this.props.game.guesses,
+      codes: this.props.game.codes,
       results: this.props.game.results
     }
   }
@@ -29,15 +29,15 @@ export default class Game extends Component<Props, State> {
         <Board
           handleColorSelected={(color: string, index: number) => {
             const game = this.props.game;
-            let guess = this.props.game.guesses[game.currentGuessCount];
-            guess.values[index] = color;
-            game.guesses[game.currentGuessCount] = guess;
+            let code = this.props.game.codes[game.currentGuessCount];
+            code.values[index] = color;
+            game.codes[game.currentGuessCount] = code;
             this.setState({
-              guesses: game.guesses
+              codes: game.codes
             });
           }}
           game={this.props.game}
-          guesses={this.state.guesses}
+          codes={this.state.codes}
           results={this.state.results}>
         </Board>
         <View style={style.right}>
@@ -50,9 +50,9 @@ export default class Game extends Component<Props, State> {
             style={style.submit}
             onPress={() => {
               const i = this.props.game.results.length;
-              const g = this.props.game.guesses[i];
+              const g = this.props.game.codes[i];
               const update = this.props.game.submitGuess(g);
-              this.setState({ results: update.results, guesses: update.codes });
+              this.setState({ results: update.results, codes: update.codes });
             }}>
             <Text>
               Submit

@@ -6,7 +6,7 @@ export default class MasterMindGame {
   public colorManager: ColorManager;
   public maxGuessCount: number = 10;
   public currentGuessCount: number = 0;
-  public guesses: Code[];
+  public codes: Code[];
   public results: CodeComparisonResult[][];
   public codeLength: number = 4;
   private secret: Code;
@@ -19,7 +19,7 @@ export default class MasterMindGame {
 
   private constructor(colorManager: ColorManager) {
     this.colorManager = colorManager;
-    this.guesses = this.generateEmptyGuesses();
+    this.codes = this.generateEmptyGuesses();
     this.results = [];
     this.maxGuessCount = 10;
     const randomColors = new Array(this.codeLength).fill('').map((v) => this.colorManager.random());
@@ -27,14 +27,14 @@ export default class MasterMindGame {
   }
 
   generateEmptyGuesses(): Code[] {
-    const guesses: Code[] = [];
+    const codes: Code[] = [];
     let i = 0;
     const count = this.maxGuessCount;
     while (i < count) {
-      guesses.push(new Code(Array(this.codeLength).fill('transparent')));
+      codes.push(new Code(Array(this.codeLength).fill('transparent')));
       i++;
     }
-    return guesses;
+    return codes;
   }
 
   generateRandomResults(): CodeComparisonResult[][] {
@@ -69,20 +69,20 @@ export default class MasterMindGame {
     return results;
   }
 
-  submitGuess(guess: Code): GameUpdate {
+  submitGuess(code: Code): GameUpdate {
     if (this.results.length === this.maxGuessCount) {
       this.results = [];
-      this.guesses = this.generateEmptyGuesses();
-      return new GameUpdate(this.guesses, this.results);
+      this.codes = this.generateEmptyGuesses();
+      return new GameUpdate(this.codes, this.results);
     }
     this.currentGuessCount += 1;
     console.log(`\n\n`);
-    console.log(`guess:\t${guess.debugDescription()}`);
+    console.log(`code:\t${code.debugDescription()}`);
     console.log(`secret:\t${this.secret.debugDescription()}`);
-    const results: CodeComparisonResult[] = guess.compareCode(this.secret);
+    const results: CodeComparisonResult[] = code.compareCode(this.secret);
     console.log(`results:\t${results.map(result => result.toString())}`);
     this.results.push(results);
-    return new GameUpdate(this.guesses, this.results);
+    return new GameUpdate(this.codes, this.results);
   }
 }
 

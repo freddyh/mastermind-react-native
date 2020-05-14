@@ -7,7 +7,7 @@ import MasterMindGame from '../models/mastermindGame';
 
 type Props = {
   game: MasterMindGame;
-  guesses: Code[];
+  codes: Code[];
   results: CodeComparisonResult[][];
   handleColorSelected: (color: string, index: number) => void;
 };
@@ -22,7 +22,7 @@ export default class Board extends Component<Props> {
         width: '70%',
         height: '100%',
       }}>
-        {this.props.guesses.map((guess: Code, index: number) => {
+        {this.props.codes.map((code: Code, index: number) => {
           const i = this.props.results.length;
           const isActiveRow = i === index;
           return (
@@ -43,7 +43,7 @@ export default class Board extends Component<Props> {
                 key={index}
                 handleColorSelected={this.props.handleColorSelected}
                 game={this.props.game}
-                guess={guess}
+                code={code}
                 isSuspended={!isActiveRow}>
               </GuessRow >
               <ResultsContainer
