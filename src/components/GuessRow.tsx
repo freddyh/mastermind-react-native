@@ -93,24 +93,34 @@ export default class GuessRow extends Component<Props, State> {
           borderColor: '#004d39',
           borderWidth: 2,
           backgroundColor: color,
+          alignContent: 'center',
+          alignItems: 'center',
+          justifyContent: 'center'
         }}
         onPress={() => {
           this.setState({
             selectedIndex: index
           });
         }}>
-      </TouchableOpacity>);
+        {this.state.selectedIndex === index && !this.props.isSuspended &&
+          <View
+            style={{
+              backgroundColor: '#004d39',
+              width: 20,
+              height: 20,
+              maxWidth: 20,
+              maxHeight: 20,
+              borderRadius: 10
+            }}>
+          </View>}
+      </TouchableOpacity >);
     });
 
-    const row = (
-      <View style={style.row}>
-        {buttons}
-      </View>
-    );
-
     return (
-      <View style={style.container}>
-        {row}
+      <View style={style.container} >
+        <View style={style.row}>
+          {buttons}
+        </View>
       </View>
     );
   }
