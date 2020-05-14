@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Code from '../models/code';
 import { Subscription } from 'rxjs';
+import MasterMindGame from '../models/mastermindGame';
 
 const style = StyleSheet.create({
   container: {
@@ -20,7 +21,7 @@ const style = StyleSheet.create({
 });
 
 type Props = {
-  game: any;
+  game: MasterMindGame;
   guess: Code;
   isSuspended: boolean;
 };

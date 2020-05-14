@@ -3,9 +3,10 @@ import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import Board from './Board';
 import ColorPicker from './ColorPicker';
 import Code, { CodeComparisonResult } from '../models/code';
+import MasterMindGame from '../models/mastermindGame';
 
 type Props = {
-  game: any;
+  game: MasterMindGame;
 };
 
 type State = {

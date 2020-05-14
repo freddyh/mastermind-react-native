@@ -3,10 +3,10 @@ import { View } from 'react-native';
 import GuessRow from './GuessRow';
 import Code, { CodeComparisonResult } from '../models/code';
 import ResultsContainer from './ResultsContainer';
-import Game from './Game';
+import MasterMindGame from '../models/mastermindGame';
 
 type Props = {
-  game: Game;
+  game: MasterMindGame;
   guesses: Code[];
   results: CodeComparisonResult[][];
 };
@@ -23,6 +23,7 @@ export default class Board extends Component<Props> {
       }}>
         {this.props.guesses.map((guess: Code, index: number) => {
           const i = this.props.results.length;
+          const isActiveRow = i === index;
           return (
             <View
               key={index}
@@ -33,7 +34,7 @@ export default class Board extends Component<Props> {
                 alignContent: 'center',
                 width: '100%',
                 height: '100%',
-                borderColor: i === index ? '#004d39' : 'transparent',
+                borderColor: isActiveRow ? '#004d39' : 'transparent',
                 borderWidth: 5,
                 borderRadius: 10
               }}>
@@ -41,7 +42,7 @@ export default class Board extends Component<Props> {
                 key={index}
                 game={this.props.game}
                 guess={guess}
-                isSuspended={i !== index}>
+                isSuspended={!isActiveRow}>
               </GuessRow >
               <ResultsContainer
                 results={this.props.results[index]}>
