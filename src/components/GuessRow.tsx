@@ -4,37 +4,20 @@ import Code from '../models/code';
 import { Subscription } from 'rxjs';
 import MasterMindGame from '../models/mastermindGame';
 
-const style = StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    width: '100%',
-    height: '100%',
-  },
-  row: {
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'space-evenly',
-    flex: 1,
-    flexDirection: 'row',
-  }
-});
-
 type Props = {
   game: MasterMindGame;
   guess: Code;
   isSuspended: boolean;
+  handleColorSelected: (color: string, index: number) => void;
 };
 
 type State = {
   selectedIndex: number;
-  guess: Code;
 };
 
 export default class GuessRow extends Component<Props, State> {
   state: State = {
     selectedIndex: 0,
-    guess: new Code([])
   };
 
   public guess: Code;
@@ -45,7 +28,6 @@ export default class GuessRow extends Component<Props, State> {
     this.guess = props.guess;
     this.state = {
       selectedIndex: 0,
-      guess: props.guess
     };
   }
 
@@ -65,14 +47,9 @@ export default class GuessRow extends Component<Props, State> {
         return;
       }
       if (!this.props.game.colorManager.colors.includes(color)) { return; }
-      this.setState((prevState, props) => {
-        let guess = prevState.guess;
-        const i = prevState.selectedIndex;
-        guess.values[i] = color;
-        return {
-          guess: guess,
-          selectedIndex: this.nextIndex()
-        }
+      this.props.handleColorSelected(color, this.state.selectedIndex);
+      this.setState({
+        selectedIndex: this.nextIndex()
       })
     });
   }
@@ -83,7 +60,7 @@ export default class GuessRow extends Component<Props, State> {
 
   render() {
     console.log(`render GuessRow`);
-    const buttons = this.state.guess.values.map((color: any, index: number) => {
+    const buttons = this.props.guess.values.map((color: any, index: number) => {
       return (<TouchableOpacity
         key={index}
         style={{
@@ -125,3 +102,19 @@ export default class GuessRow extends Component<Props, State> {
     );
   }
 };
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    width: '100%',
+    height: '100%',
+  },
+  row: {
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'space-evenly',
+    flex: 1,
+    flexDirection: 'row',
+  }
+});

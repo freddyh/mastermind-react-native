@@ -27,6 +27,15 @@ export default class Game extends Component<Props, State> {
     return (
       <View style={style.container}>
         <Board
+          handleColorSelected={(color: string, index: number) => {
+            const game = this.props.game;
+            let guess = this.props.game.guesses[game.currentGuessCount];
+            guess.values[index] = color;
+            game.guesses[game.currentGuessCount] = guess;
+            this.setState({
+              guesses: game.guesses
+            });
+          }}
           game={this.props.game}
           guesses={this.state.guesses}
           results={this.state.results}>
@@ -42,8 +51,8 @@ export default class Game extends Component<Props, State> {
             onPress={() => {
               const i = this.props.game.results.length;
               const g = this.props.game.guesses[i];
-              const results = this.props.game.submitGuess(g);
-              this.setState({ results: results });
+              const update = this.props.game.submitGuess(g);
+              this.setState({ results: update.results, guesses: update.codes });
             }}>
             <Text>
               Submit

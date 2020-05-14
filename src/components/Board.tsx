@@ -9,6 +9,7 @@ type Props = {
   game: MasterMindGame;
   guesses: Code[];
   results: CodeComparisonResult[][];
+  handleColorSelected: (color: string, index: number) => void;
 };
 
 export default class Board extends Component<Props> {
@@ -40,6 +41,7 @@ export default class Board extends Component<Props> {
               }}>
               <GuessRow
                 key={index}
+                handleColorSelected={this.props.handleColorSelected}
                 game={this.props.game}
                 guess={guess}
                 isSuspended={!isActiveRow}>

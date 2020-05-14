@@ -69,7 +69,12 @@ export default class MasterMindGame {
     return results;
   }
 
-  submitGuess(guess: Code): CodeComparisonResult[][] {
+  submitGuess(guess: Code): GameUpdate {
+    if (this.results.length === this.maxGuessCount) {
+      this.results = [];
+      this.guesses = this.generateEmptyGuesses();
+      return new GameUpdate(this.guesses, this.results);
+    }
     this.currentGuessCount += 1;
     console.log(`\n\n`);
     console.log(`guess:\t${guess.debugDescription()}`);
@@ -77,6 +82,16 @@ export default class MasterMindGame {
     const results: CodeComparisonResult[] = guess.compareCode(this.secret);
     console.log(`results:\t${results.map(result => result.toString())}`);
     this.results.push(results);
-    return this.results;
+    return new GameUpdate(this.guesses, this.results);
+  }
+}
+
+type Result = CodeComparisonResult[];
+export class GameUpdate {
+  public codes: Code[];
+  public results: Result[];
+  constructor(codes: Code[], results: Result[]) {
+    this.codes = codes;
+    this.results = results;
   }
 }
