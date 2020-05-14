@@ -47,15 +47,13 @@ export default class Game extends Component<Props, State> {
             </ColorPicker>
           </View>
           <TouchableOpacity
-            style={style.submit}
+            style={style.newGame}
             onPress={() => {
-              const i = this.props.game.results.length;
-              const g = this.props.game.codes[i];
-              const update = this.props.game.submitGuess(g);
+              const update = this.props.game.restart();
               this.setState({ results: update.results, codes: update.codes });
             }}>
             <Text>
-              Submit
+              New Game
             </Text>
           </TouchableOpacity>
         </View>
@@ -83,7 +81,7 @@ const style = StyleSheet.create({
     width: '100%',
     height: '90%',
   },
-  submit: {
+  newGame: {
     height: '10%',
     backgroundColor: '#DDDDDD',
     alignItems: 'center',

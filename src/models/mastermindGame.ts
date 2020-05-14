@@ -9,7 +9,7 @@ export default class MasterMindGame {
   public codes: Code[];
   public results: CodeComparisonResult[][];
   public codeLength: number = 4;
-  private secret: Code;
+  private secret: Code = new Code([]);
 
   static init(difficulty: GameDifficulty = GameDifficulty.EASY) {
     const config = GameConfiguration.create(difficulty);
@@ -22,6 +22,10 @@ export default class MasterMindGame {
     this.codes = this.generateEmptyGuesses();
     this.results = [];
     this.maxGuessCount = 10;
+    this.setSecret();
+  }
+
+  setSecret() {
     const randomColors = new Array(this.codeLength).fill('').map((v) => this.colorManager.random());
     this.secret = new Code(randomColors);
   }
@@ -69,7 +73,10 @@ export default class MasterMindGame {
     return results;
   }
 
-  submitGuess(code: Code): GameUpdate {
+  submitGuess(code: Code): GameUpdate | undefined {
+    if (code.values.includes('transparent')) {
+      return;
+    }
     if (this.results.length === this.maxGuessCount) {
       this.results = [];
       this.codes = this.generateEmptyGuesses();
@@ -82,6 +89,14 @@ export default class MasterMindGame {
     const results: CodeComparisonResult[] = code.compareCode(this.secret);
     console.log(`results:\t${results.map(result => result.toString())}`);
     this.results.push(results);
+    return new GameUpdate(this.codes, this.results);
+  }
+
+  restart(): GameUpdate {
+    this.setSecret();
+    this.currentGuessCount = 0;
+    this.results = [];
+    this.codes = this.generateEmptyGuesses();
     return new GameUpdate(this.codes, this.results);
   }
 }
