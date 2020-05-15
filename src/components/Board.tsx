@@ -29,32 +29,46 @@ export default class Board extends Component<Props> {
         </GuessRow>
       );
 
-      const resultsView = (isActiveRow ?
-        <TouchableOpacity
+      const resultsView = (
+        <View
           style={{
             height: 75,
             width: 75,
-            backgroundColor: '#DDDDDD',
             alignItems: 'center',
             alignContent: 'center',
             justifyContent: 'center',
             borderRadius: 8
-          }}
-          onPress={() => {
-            const g = this.props.codes[index];
-            const update = this.props.game.submitGuess(g);
-            if (!!update) {
-              this.setState({ results: update.results, codes: update.codes });
-            }
           }}>
-          <Text>Submit</Text>
-        </TouchableOpacity>
-        :
-        (this.props.results[index] &&
-          <ResultsContainer
-            results={this.props.results[index]} >
-          </ResultsContainer>
-        )
+          {
+            (isActiveRow ?
+              <TouchableOpacity
+                style={{
+                  height: '80%',
+                  width: '80%',
+                  backgroundColor: '#DDDDDD',
+                  alignItems: 'center',
+                  alignContent: 'center',
+                  justifyContent: 'center',
+                  borderRadius: 8
+                }}
+                onPress={() => {
+                  const g = this.props.codes[index];
+                  const update = this.props.game.submitGuess(g);
+                  if (!!update) {
+                    this.setState({ results: update.results, codes: update.codes });
+                  }
+                }}>
+                <Text>Submit</Text>
+              </TouchableOpacity>
+              :
+              (this.props.results[index] &&
+                <ResultsContainer
+                  results={this.props.results[index]} >
+                </ResultsContainer>
+              )
+            )
+          }
+        </View>
       );
 
       return (
