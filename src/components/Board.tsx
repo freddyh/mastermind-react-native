@@ -25,7 +25,7 @@ export default class Board extends Component<Props> {
           handleColorSelected={this.props.handleColorSelected}
           game={this.props.game}
           code={code}
-          isSuspended={!isActiveRow}>
+          isSuspended={!isActiveRow || !this.props.game.isActive}>
         </GuessRow>
       );
 
@@ -40,16 +40,16 @@ export default class Board extends Component<Props> {
             borderRadius: 8
           }}>
           {
-            (isActiveRow ?
+            (isActiveRow && this.props.game.isActive ?
               <TouchableOpacity
                 style={{
-                  height: '80%',
-                  width: '80%',
+                  height: '75%',
+                  width: '90%',
                   backgroundColor: '#DDDDDD',
                   alignItems: 'center',
                   alignContent: 'center',
                   justifyContent: 'center',
-                  borderRadius: 8
+                  borderRadius: 4
                 }}
                 onPress={() => {
                   const g = this.props.codes[index];
@@ -75,15 +75,16 @@ export default class Board extends Component<Props> {
         <View
           key={index}
           style={{
+            margin: 3,
             flex: 1,
             flexDirection: 'row',
             alignItems: 'center',
             alignContent: 'center',
             width: '100%',
             height: '100%',
-            borderColor: isActiveRow ? '#004d39' : 'transparent',
-            borderWidth: 5,
-            borderRadius: 10
+            borderColor: '#004d39',
+            borderWidth: isActiveRow && this.props.game.isActive ? 4 : 1,
+            borderRadius: 8
           }}>
           {codeView}
           {resultsView}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Alert } from 'react-native';
 import Board from './Board';
 import ColorPicker from './ColorPicker';
 import Code, { CodeComparisonResult } from '../models/code';
@@ -22,6 +22,29 @@ export default class Game extends Component<Props, State> {
       results: this.props.game.results
     }
   }
+
+  alert(title: string, message: string) {
+    Alert.alert(
+      title,
+      message,
+      [
+        {
+          text: "Cancel",
+          onPress: () => { },
+          style: "cancel"
+        },
+        {
+          text: "Start New Game",
+          onPress: () => {
+            const update = this.props.game.restart();
+            this.setState({ results: update.results, codes: update.codes });
+          }
+        }
+      ],
+      { cancelable: false }
+    )
+  }
+
   render() {
     console.log(`render Game`);
     return (
@@ -49,8 +72,7 @@ export default class Game extends Component<Props, State> {
           <TouchableOpacity
             style={style.newGame}
             onPress={() => {
-              const update = this.props.game.restart();
-              this.setState({ results: update.results, codes: update.codes });
+              this.alert(`Start a New Game`, `Are you sure?`);
             }}>
             <Text>
               New Game
@@ -66,6 +88,7 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
+
     backgroundColor: '#007558', // board color
     width: '100%',
     height: '100%',
@@ -76,18 +99,19 @@ const style = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     maxWidth: '20%',
+    padding: 8
   },
   picker: {
     width: '100%',
     height: '90%',
   },
   newGame: {
-    height: '10%',
+    flex: 1,
     backgroundColor: '#DDDDDD',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 8
+    borderRadius: 4,
   },
   row: {
     alignItems: 'center',

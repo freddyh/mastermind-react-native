@@ -41,6 +41,7 @@ class ResultsContainer extends Component<Props> {
       r = this.props.results;
     }
     const results = r.map(result => result.toString());
+    results.sort();
     const emptyResults = 4 - results.length;
     for (let i = 0; i < emptyResults; i++) {
       results.push('#004d39');

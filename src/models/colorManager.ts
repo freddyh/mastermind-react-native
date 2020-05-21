@@ -6,7 +6,7 @@ class ColorManager {
     'red',
     'orange',
     'yellow',
-    'green',
+    'gray',
     'blue',
     'indigo',
     'violet',

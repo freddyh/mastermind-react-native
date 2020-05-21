@@ -7,7 +7,7 @@ import GameDifficulty from '../models/gameDifficulty';
 export default class App extends Component {
   render() {
     console.log(`render App`);
-    const game = MasterMindGame.init(GameDifficulty.HARD);
+    const game = MasterMindGame.init(GameDifficulty.MEDIUM);
     return (
       <SafeAreaView style={style.container}>
         <View style={style.game}>

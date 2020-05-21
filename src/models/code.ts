@@ -13,6 +13,10 @@ export class CodeComparisonResult {
   toString() {
     return this.value;
   }
+
+  isFullMatch() {
+    return this === CodeComparisonResult.FULL_MATCH;
+  }
 }
 
 export default class Code {

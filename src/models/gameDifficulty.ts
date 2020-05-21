@@ -18,11 +18,11 @@ export class GameConfiguration {
   static create(difficulty: GameDifficulty): GameConfiguration {
     switch (difficulty) {
       case GameDifficulty.EASY:
-        return new GameConfiguration(15, 3, 6);
+        return new GameConfiguration(10, 4, 6);
       case GameDifficulty.MEDIUM:
-        return new GameConfiguration(12, 4, 9);
+        return new GameConfiguration(10, 4, 9);
       case GameDifficulty.HARD:
-        return new GameConfiguration(10, 6, 12);
+        return new GameConfiguration(10, 4, 12);
     }
   }
 

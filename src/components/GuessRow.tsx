@@ -50,7 +50,7 @@ export default class GuessRow extends Component<Props, State> {
       this.props.handleColorSelected(color, this.state.selectedIndex);
       this.setState({
         selectedIndex: this.nextIndex()
-      })
+      });
     });
   }
 
@@ -62,6 +62,7 @@ export default class GuessRow extends Component<Props, State> {
     console.log(`render GuessRow`);
     const buttons = this.props.code.values.map((color: any, index: number) => {
       return (<TouchableOpacity
+        disabled={this.props.isSuspended}
         key={index}
         style={{
           width: 50,
