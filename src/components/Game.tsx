@@ -4,6 +4,7 @@ import Board from './Board';
 import ColorPicker from './ColorPicker';
 import Code, { CodeComparisonResult } from '../models/code';
 import MasterMindGame from '../models/mastermindGame';
+import { Colors, Buttons } from '../styles';
 
 type Props = {
   game: MasterMindGame;
@@ -88,12 +89,9 @@ const style = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
-
-    backgroundColor: '#007558', // board color
+    backgroundColor: Colors.background,
     width: '100%',
     height: '100%',
-    borderWidth: 2,
-    borderRadius: 8,
   },
   right: {
     flex: 1,
@@ -106,12 +104,9 @@ const style = StyleSheet.create({
     height: '90%',
   },
   newGame: {
+    ...Buttons.primary,
     flex: 1,
-    backgroundColor: '#DDDDDD',
-    alignItems: 'center',
-    alignContent: 'center',
     justifyContent: 'center',
-    borderRadius: 4,
   },
   row: {
     alignItems: 'center',

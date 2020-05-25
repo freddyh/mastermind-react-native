@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, SafeAreaView } from 'react-native';
+import { StyleSheet, View, Text, SafeAreaView } from 'react-native';
 import Game from './Game';
+import Home from './Home';
 import MasterMindGame from '../models/mastermindGame';
 import GameDifficulty from '../models/gameDifficulty';
+import { Colors } from '../styles';
 
 export default class App extends Component {
   render() {
@@ -10,6 +12,9 @@ export default class App extends Component {
     const game = MasterMindGame.init(GameDifficulty.MEDIUM);
     return (
       <SafeAreaView style={style.container}>
+        {/* <Home>
+        </Home> */}
+
         <View style={style.game}>
           <Game game={game}></Game>
         </View>
@@ -25,7 +30,7 @@ const style = StyleSheet.create({
     justifyContent: 'space-evenly',
     flex: 1,
     flexDirection: 'row',
-    backgroundColor: 'black'
+    backgroundColor: Colors.background
   },
   game: {
     width: '100%',

@@ -3,6 +3,7 @@ import { StyleSheet, View, TouchableOpacity } from 'react-native';
 import Code from '../models/code';
 import { Subscription } from 'rxjs';
 import MasterMindGame from '../models/mastermindGame';
+import { Colors } from '../styles';
 
 type Props = {
   game: MasterMindGame;
@@ -68,8 +69,8 @@ export default class GuessRow extends Component<Props, State> {
           width: 50,
           height: 50,
           borderRadius: 25,
-          borderColor: '#004d39',
-          borderWidth: 2,
+          borderColor: Colors.secondary,
+          borderWidth: this.props.isSuspended ? 0 : 2,
           backgroundColor: color,
           alignContent: 'center',
           alignItems: 'center',
@@ -83,7 +84,7 @@ export default class GuessRow extends Component<Props, State> {
         {this.state.selectedIndex === index && !this.props.isSuspended &&
           <View
             style={{
-              backgroundColor: '#004d39',
+              backgroundColor: Colors.secondary,
               width: 20,
               height: 20,
               maxWidth: 20,

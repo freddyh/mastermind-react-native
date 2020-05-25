@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { CodeComparisonResult } from '../models/code';
+import { Colors } from '../styles';
 
 const style = StyleSheet.create({
   row: {
@@ -25,6 +26,8 @@ class ResultsContainer extends Component<Props> {
       <View
         key={key}
         style={{
+          borderColor: Colors.secondary,
+          borderWidth: 1,
           borderRadius: 25,
           width: 15,
           height: 15,
@@ -44,7 +47,7 @@ class ResultsContainer extends Component<Props> {
     results.sort();
     const emptyResults = 4 - results.length;
     for (let i = 0; i < emptyResults; i++) {
-      results.push('#004d39');
+      results.push(Colors.transparent);
     }
     const first = results.slice(0, 2).map((color, index) => {
       return this.resultView(color, index);

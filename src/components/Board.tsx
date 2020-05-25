@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text } from 'react-native';
 import GuessRow from './GuessRow';
 import Code, { CodeComparisonResult } from '../models/code';
 import ResultsContainer from './ResultsContainer';
 import MasterMindGame from '../models/mastermindGame';
+import { Buttons, Colors } from '../styles';
 
 type Props = {
   game: MasterMindGame;
@@ -42,15 +43,7 @@ export default class Board extends Component<Props> {
           {
             (isActiveRow && this.props.game.isActive ?
               <TouchableOpacity
-                style={{
-                  height: '75%',
-                  width: '90%',
-                  backgroundColor: '#DDDDDD',
-                  alignItems: 'center',
-                  alignContent: 'center',
-                  justifyContent: 'center',
-                  borderRadius: 4
-                }}
+                style={styles.button}
                 onPress={() => {
                   const g = this.props.codes[index];
                   const update = this.props.game.submitGuess(g);
@@ -82,7 +75,7 @@ export default class Board extends Component<Props> {
             alignContent: 'center',
             width: '100%',
             height: '100%',
-            borderColor: '#004d39',
+            borderColor: Colors.secondary,
             borderWidth: isActiveRow && this.props.game.isActive ? 4 : 1,
             borderRadius: 8
           }}>
@@ -104,3 +97,9 @@ export default class Board extends Component<Props> {
     );
   }
 };
+
+const styles = StyleSheet.create({
+  button: {
+    ...Buttons.primary
+  }
+});
