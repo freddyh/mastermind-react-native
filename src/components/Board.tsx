@@ -4,10 +4,12 @@ import GuessRow from './GuessRow';
 import Code, { CodeComparisonResult } from '../models/code';
 import ResultsContainer from './ResultsContainer';
 import MasterMindGame from '../models/mastermindGame';
+import { GameConfiguration } from '../models/gameDifficulty';
 import { Buttons, Colors } from '../styles';
 
 type Props = {
   game: MasterMindGame;
+  configuration: GameConfiguration;
   codes: Code[];
   results: CodeComparisonResult[][];
   handleColorSelected: (color: string, index: number) => void;
@@ -16,6 +18,11 @@ type Props = {
 export default class Board extends Component<Props> {
   render() {
     console.log(`render Board`);
+    const codes = this.props.codes ?? [];
+    const emptyRowCount: number = this.props.configuration.guessCount() - codes.length;
+    for (let i = 0; i < emptyRowCount; i++) {
+      codes.push(new Code(Array(this.props.configuration.codeLength()).fill(Colors.transparent)));
+    }
     const rows = (this.props.codes.map((code: Code, index: number) => {
       const i = this.props.results.length;
       const isActiveRow = i === index;

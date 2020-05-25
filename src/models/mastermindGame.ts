@@ -7,12 +7,12 @@ export default class MasterMindGame {
   public colorManager: ColorManager;
   public maxGuessCount: number = 10;
   public currentGuessCount: number = 0;
-  public codes: Code[];
+  public codes: Code[] = [];
   public results: CodeComparisonResult[][];
   public codeLength: number = 4;
   public isActive: boolean = true;
   private secret: Code = new Code([]);
-  private config: GameConfiguration;
+  public config: GameConfiguration;
 
   static init(difficulty: GameDifficulty = GameDifficulty.EASY) {
     const config = GameConfiguration.create(difficulty);
@@ -23,7 +23,6 @@ export default class MasterMindGame {
   private constructor(colorManager: ColorManager, configuration: GameConfiguration) {
     this.config = configuration;
     this.colorManager = colorManager;
-    this.codes = this.generateEmptyGuesses();
     this.results = [];
     this.maxGuessCount = 10;
     this.setSecret();
@@ -32,17 +31,6 @@ export default class MasterMindGame {
   setSecret() {
     const randomColors = new Array(this.codeLength).fill('').map((v) => this.colorManager.random());
     this.secret = new Code(randomColors);
-  }
-
-  generateEmptyGuesses(): Code[] {
-    const codes: Code[] = [];
-    let i = 0;
-    const count = this.maxGuessCount;
-    while (i < count) {
-      codes.push(new Code(Array(this.codeLength).fill('transparent')));
-      i++;
-    }
-    return codes;
   }
 
   generateRandomResults(): CodeComparisonResult[][] {
@@ -121,7 +109,7 @@ export default class MasterMindGame {
     }
     if (this.results.length === this.maxGuessCount) {
       this.results = [];
-      this.codes = this.generateEmptyGuesses();
+      this.codes = [];
       return new GameUpdate(this.codes, this.results);
     }
     this.currentGuessCount += 1;
@@ -144,7 +132,7 @@ export default class MasterMindGame {
     this.setSecret();
     this.currentGuessCount = 0;
     this.results = [];
-    this.codes = this.generateEmptyGuesses();
+    this.codes = [];
     return new GameUpdate(this.codes, this.results);
   }
 }

@@ -60,6 +60,7 @@ export default class Game extends Component<Props, State> {
               codes: game.codes
             });
           }}
+          configuration={this.props.game.config}
           game={this.props.game}
           codes={this.state.codes}
           results={this.state.results}>
