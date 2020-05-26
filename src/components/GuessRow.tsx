@@ -8,7 +8,8 @@ import { Colors } from '../styles';
 type Props = {
   game: MasterMindGame;
   code: Code;
-  isSuspended: boolean;
+  isCompleted: boolean;
+  isActive: boolean;
   handleColorSelected: (color: string, index: number) => void;
 };
 
@@ -44,7 +45,7 @@ export default class GuessRow extends Component<Props, State> {
 
   componentDidMount() {
     this.sub = this.props.game.colorManager.colorSubject.subscribe((color: string) => {
-      if (this.props.isSuspended) {
+      if (!this.props.isActive) {
         return;
       }
       if (!this.props.game.colorManager.colors.includes(color)) { return; }
@@ -62,16 +63,17 @@ export default class GuessRow extends Component<Props, State> {
   render() {
     console.log(`render GuessRow`);
     const buttons = this.props.code.values.map((color: any, index: number) => {
+      const showSelectedIndicator = this.state.selectedIndex === index && this.props.isActive;
       return (<TouchableOpacity
-        disabled={this.props.isSuspended}
+        disabled={!this.props.isActive}
         key={index}
         style={{
           width: 50,
           height: 50,
           borderRadius: 25,
-          borderColor: Colors.secondary,
-          borderWidth: this.props.isSuspended ? 0 : 2,
-          backgroundColor: color,
+          borderColor: this.props.isActive ? Colors.secondary : Colors.secondary,
+          borderWidth: this.props.isCompleted ? 0 : 2,
+          backgroundColor: this.props.isActive ? color : color,
           alignContent: 'center',
           alignItems: 'center',
           justifyContent: 'center'
@@ -81,7 +83,8 @@ export default class GuessRow extends Component<Props, State> {
             selectedIndex: index
           });
         }}>
-        {this.state.selectedIndex === index && !this.props.isSuspended &&
+
+        {showSelectedIndicator &&
           <View
             style={{
               backgroundColor: Colors.secondary,
@@ -91,7 +94,8 @@ export default class GuessRow extends Component<Props, State> {
               maxHeight: 20,
               borderRadius: 10
             }}>
-          </View>}
+          </View>
+        }
       </TouchableOpacity >);
     });
 

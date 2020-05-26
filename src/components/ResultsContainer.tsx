@@ -27,7 +27,7 @@ class ResultsContainer extends Component<Props> {
         key={key}
         style={{
           borderColor: Colors.secondary,
-          borderWidth: 1,
+          borderWidth: 2,
           borderRadius: 25,
           width: 15,
           height: 15,
@@ -39,11 +39,7 @@ class ResultsContainer extends Component<Props> {
 
   render() {
     console.log(`render ResultsContainer`);
-    let r: CodeComparisonResult[] = [];
-    if (!!this.props.results) {
-      r = this.props.results;
-    }
-    const results = r.map(result => result.toString());
+    const results = (this.props.results ?? []).map(result => result.toString());
     results.sort();
     const emptyResults = 4 - results.length;
     for (let i = 0; i < emptyResults; i++) {

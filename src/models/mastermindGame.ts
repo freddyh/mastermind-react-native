@@ -77,7 +77,7 @@ export default class MasterMindGame {
         },
         {
           text: "Start New Game",
-          onPress: () => this.restart()
+          onPress: () => this.restart() // TODO: this needs to update state of Game view somehow
         }
       ],
       { cancelable: false }
@@ -103,8 +103,12 @@ export default class MasterMindGame {
     }
   }
 
+  isCompleteGuess(code: Code): boolean {
+    return code.values.filter(x => this.colorManager.isColorValid(x)).length === this.config.codeLength();
+  }
+
   submitGuess(code: Code): GameUpdate | undefined {
-    if (code.values.includes('transparent')) {
+    if (!this.isCompleteGuess(code)) {
       return;
     }
     if (this.results.length === this.maxGuessCount) {

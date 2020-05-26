@@ -25,7 +25,9 @@ export default class Board extends Component<Props> {
     }
     const rows = (this.props.codes.map((code: Code, index: number) => {
       const i = this.props.results.length;
-      const isActiveRow = i === index;
+      const isActiveIndex = i === index;
+      const isActiveRow = isActiveIndex && this.props.game.isActive;
+      const isCompleted = index < i;
 
       const codeView = (
         <GuessRow
@@ -33,7 +35,8 @@ export default class Board extends Component<Props> {
           handleColorSelected={this.props.handleColorSelected}
           game={this.props.game}
           code={code}
-          isSuspended={!isActiveRow || !this.props.game.isActive}>
+          isActive={isActiveRow}
+          isCompleted={isCompleted}>
         </GuessRow>
       );
 
@@ -83,7 +86,7 @@ export default class Board extends Component<Props> {
             width: '100%',
             height: '100%',
             borderColor: Colors.secondary,
-            borderWidth: isActiveRow && this.props.game.isActive ? 4 : 1,
+            borderWidth: 2,
             borderRadius: 8
           }}>
           {codeView}
