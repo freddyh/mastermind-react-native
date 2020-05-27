@@ -33,38 +33,6 @@ export default class MasterMindGame {
     this.secret = new Code(randomColors);
   }
 
-  generateRandomResults(): CodeComparisonResult[][] {
-    const results: CodeComparisonResult[][] = [];
-    for (let i = 0; i < this.maxGuessCount; i++) {
-      const length = 1 + (Math.floor((this.codeLength - 1) * Math.random()));
-      const random = this.randomResults(length);
-      results.push(random);
-    }
-    return results;
-  }
-
-  randomColors(size: number): string[] {
-    const result = [];
-    let i = 0;
-    while (i < size) {
-      result.push(this.colorManager.random());
-      i++;
-    }
-    return result;
-  }
-
-  randomResult(): CodeComparisonResult {
-    return Math.random() < 0.5 ? CodeComparisonResult.FULL_MATCH : CodeComparisonResult.PARTIAL_MATCH;
-  }
-
-  randomResults(length: number): CodeComparisonResult[] {
-    let results: CodeComparisonResult[] = [];
-    for (let i = 0; i < length; i++) {
-      results.push(this.randomResult());
-    }
-    return results;
-  }
-
   createTwoButtonAlert(title: string, message: string) {
     Alert.alert(
       title,
@@ -104,7 +72,8 @@ export default class MasterMindGame {
   }
 
   isCompleteGuess(code: Code): boolean {
-    return code.values.filter(x => this.colorManager.isColorValid(x)).length === this.config.codeLength();
+    const valids = code.values.filter(x => this.colorManager.isColorValid(x));
+    return valids.length === this.config.codeLength();
   }
 
   submitGuess(code: Code): GameUpdate | undefined {
