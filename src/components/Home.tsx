@@ -1,13 +1,24 @@
 import * as React from 'react';
 import { Text, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Colors, Buttons } from '../styles';
+import MasterMindGame from '../models/mastermindGame';
+import GameDifficulty from '../models/gameDifficulty';
+import { HomeScreenRouteProp, HomeScreenNavigationProp } from './Types';
 
-interface HomeProps { }
+type Props = {
+  route: HomeScreenRouteProp;
+  navigation: HomeScreenNavigationProp;
+};
 
-const Home = (props: HomeProps) => {
+const Home = (props: Props) => {
   return (
     <View style={styles.container}>
       <TouchableOpacity
+        onPress={() => {
+          props.navigation.navigate(`Game`, {
+            game: MasterMindGame.init(GameDifficulty.MEDIUM)
+          });
+        }}
         style={styles.button}>
         <Text>Start New Game</Text>
       </TouchableOpacity>
@@ -31,7 +42,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'column',
-    // backgroundColor: Colors.backgroundColor
   },
   button: {
     ...Buttons.primary,

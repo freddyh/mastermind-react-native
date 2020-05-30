@@ -5,9 +5,11 @@ import ColorPicker from './ColorPicker';
 import Code, { CodeComparisonResult } from '../models/code';
 import MasterMindGame from '../models/mastermindGame';
 import { Colors, Buttons } from '../styles';
+import { GameScreenRouteProp, GameScreenNavigationProp } from './Types';
 
 type Props = {
-  game: MasterMindGame;
+  route: GameScreenRouteProp;
+  navigation: GameScreenNavigationProp;
 };
 
 type State = {
@@ -16,12 +18,16 @@ type State = {
 }
 
 export default class Game extends Component<Props, State> {
+  private game: MasterMindGame;
+
   constructor(props: Props) {
     super(props);
+    const g = props.route.params.game;
     this.state = {
-      codes: this.props.game.codes,
-      results: this.props.game.results
-    }
+      codes: g.codes ?? [],
+      results: g.results
+    };
+    this.game = g;
   }
 
   alert(title: string, message: string) {
@@ -37,7 +43,7 @@ export default class Game extends Component<Props, State> {
         {
           text: "Start New Game",
           onPress: () => {
-            const update = this.props.game.restart();
+            const update = this.game.restart();
             this.setState({ results: update.results, codes: update.codes });
           }
         }
@@ -52,23 +58,23 @@ export default class Game extends Component<Props, State> {
       <View style={style.container}>
         <Board
           handleColorSelected={(color: string, index: number) => {
-            const game = this.props.game;
-            let code = this.props.game.codes[game.currentGuessCount];
+            const game = this.game;
+            let code = game.codes[game.currentGuessCount];
             code.values[index] = color;
             game.codes[game.currentGuessCount] = code;
             this.setState({
               codes: game.codes
             });
           }}
-          configuration={this.props.game.config}
-          game={this.props.game}
+          configuration={this.game.config}
+          game={this.game}
           codes={this.state.codes}
           results={this.state.results}>
         </Board>
         <View style={style.right}>
           <View style={style.picker}>
             <ColorPicker
-              colorManager={this.props.game.colorManager}>
+              colorManager={this.game.colorManager}>
             </ColorPicker>
           </View>
           <TouchableOpacity

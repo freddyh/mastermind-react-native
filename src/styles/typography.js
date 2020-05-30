@@ -1,5 +1,4 @@
 import * as Colors from './colors'
-import * as Spacing from './spacing'
 
 export const extraLargeFontSize = 32
 export const largeFontSize = 24
