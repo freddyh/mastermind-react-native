@@ -4,4 +4,11 @@ A game called Mastermind
 
 ## Setup
 
-<https://reactnative.dev/docs/environment-setup>
+- Install npm
+- Setup [React Native Environment](https://reactnative.dev/docs/environment-setup)
+
+## Local Development
+
+- npm install
+- npx react-native start
+- npx react-native run-ios
