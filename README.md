@@ -4,8 +4,7 @@ A game called [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
 ## Setup
 
-- Install npm
-- Setup [React Native Environment](https://reactnative.dev/docs/environment-setup)
+Read [React Native Environment](https://reactnative.dev/docs/environment-setup)
 
 ## Local Development
 
