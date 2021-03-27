@@ -1,6 +1,6 @@
 # mastermind-react-native
 
-A game called Mastermind
+A game called [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game))
 
 ## Setup
 
