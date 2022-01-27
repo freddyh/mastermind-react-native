@@ -6,7 +6,7 @@ A game called [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
 Read [React Native Environment](https://reactnative.dev/docs/environment-setup)
 
-This project is setup with Expo
+This project is setup with [Expo](https://docs.expo.dev)
 
 ## Local Development
 
