@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
+// import Game from '../components/Game';
 import { Text, View } from '../components/Themed';
 import { RootTabScreenProps } from '../types';
 
