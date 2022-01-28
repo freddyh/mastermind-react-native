@@ -4,9 +4,13 @@ A game called [Mastermind](https://en.wikipedia.org/wiki/Mastermind_(board_game)
 
 ## Setup
 
-Read [React Native Environment](https://reactnative.dev/docs/environment-setup)
+Install [Node](https://nodejs.org/en/)
 
-This project is setup with [Expo](https://docs.expo.dev)
+Install [Yarn](https://yarnpkg.com/getting-started/install)
+
+Install [Expo](https://docs.expo.dev)
+
+Read about [React Native](https://reactnative.dev/docs/environment-setup)
 
 ## Local Development
 
