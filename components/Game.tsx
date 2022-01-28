@@ -7,6 +7,7 @@ import MasterMindGame from '../models/mastermindGame';
 import { Colors, Buttons } from '../styles';
 import { GameScreenNavigationProp, GameScreenRouteProp } from '../types';
 import GameDifficulty from '../models/gameDifficulty';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Props = {
   route: GameScreenRouteProp;
@@ -57,7 +58,7 @@ export default class Game extends Component<Props, State> {
   render() {
     console.log(`render Game`);
     return (
-      <View style={style.container}>
+      <SafeAreaView style={style.container}>
         <Board
           handleColorSelected={(color: string, index: number) => {
             const game = this.game;
@@ -89,7 +90,7 @@ export default class Game extends Component<Props, State> {
             </Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </SafeAreaView>
     );
   }
 };
